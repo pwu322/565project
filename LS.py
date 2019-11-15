@@ -25,14 +25,26 @@ class node:
         self.parent = []
         self.asap = 0
         self.alap = 0
+        self.type = -1
+
+class FU:
+    def __init__(self,type):
+        self.type = -1
+        self.spower = 0
+        self.dpower = 0
+        self.delay = 0
+        self.constraint = 0
 
 ops = []  ## list of nodes
+FU  = []
 for line in input:
     newline = line.strip()
     if "label" in newline:
-       type = get_type(newline[:3])
+       restype = get_type(newline[:3])
        id = int(re.search(r'\d+',newline).group())
-       ops.append(node(id))
+       op  = node(id)
+       op.type = restype
+       ops.append(op)
     
 input.seek(0) #read the file again by reset the read
 
