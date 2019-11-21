@@ -1,5 +1,5 @@
 import re
-input = open('collapse_pyr_dfg__113.txt')  #import the input file
+input = open('horner_bezier_surf_dfg__12.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -36,7 +36,8 @@ class FU:
         self.delay = 0
         self.constraint = 10
 
-ops = []  ## list of nodes
+#ops = []  ## list of nodes
+ops = {}  ##dictionary of nodes, key is id, node is content
 resources  = []  ##list of FU types
 
 # read the FUs description from para_new.txt and create resouces list
@@ -76,7 +77,8 @@ for line in input:
        id = int(re.search(r'\d+',newline).group())
        op  = node(id)											# create node and assign its id
        op.type = restype										# assign node type
-       ops.append(op)											# append node to list of nodes
+       ops[id] = op
+#       ops.append(op)											# append node to list of nodes
     
 input.seek(0) #read the file again by reset the read
 
@@ -92,11 +94,11 @@ for line in input:
 for i in depend:  ## i is each depency line
     parent = i[0]   #parent number
     child = i[1]
-    (ops[parent-1].child).append(ops[child-1])  #parent nodes' child list update
-    (ops[child-1].parent).append(ops[parent-1]) #update nodes' parent list
+    (ops[parent].child).append(ops[child])  #parent nodes' child list update
+    (ops[child].parent).append(ops[parent]) #update nodes' parent list
 
 # DEBUG
-for n in ops:
+for n in ops.values():
 	s = 'id: '+ str(n.id)+', type: '+str(n.type)+', type delay: '+str(resources[n.type].delay)
 	print(s)
 
@@ -109,12 +111,12 @@ dummy_node = node(0)
 
 #calculate upperbound of altency constraint
 lamda = 0                                                         #initialize upperbound latency to 0 first
-for i in ops:
+for i in ops.values():
     lamda += resources[i.type].delay 
 
 queue = []
 def ALAP(ops_list):
-    for i in reversed(ops_list):                                  #bottom up                                      
+    for i in ops_list.values():                                  #bottom up                                      
         if not i.child:                                           # if the node has no children
             i.alap = lamda + 1 - resources[i.type].delay
             print("node" + str(i.id) + "   alap: "+ str(i.alap) )
