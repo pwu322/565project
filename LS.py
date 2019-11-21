@@ -1,5 +1,5 @@
 import re
-input = open('horner_bezier_surf_dfg__12.txt')  #import the input file
+input = open('hal.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -27,6 +27,7 @@ class node:
         self.asap = 0
         self.alap = 0
         self.type = -1
+        self.schd_time = 0       #schedule time after LS for each node
 
 class FU:
     def __init__(self,type):
@@ -34,7 +35,7 @@ class FU:
         self.spower = 0.0
         self.dpower = 0
         self.delay = 0
-        self.constraint = 10
+        self.constraint = 1    
 
 #ops = []  ## list of nodes
 ops = {}  ##dictionary of nodes, key is id, node is content
@@ -106,7 +107,7 @@ for n in ops.values():
 ######------------here comes List Scheduling algorithm--------------------------------
 
 #to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
-dummy_node = node(0)
+#dummy_node = node(0)
 #ops.append(dummy_node)
 
 #calculate upperbound of altency constraint
@@ -119,33 +120,37 @@ def ALAP(ops_list):
     for i in ops_list.values():                                  #bottom up                                      
         if not i.child:                                           # if the node has no children
             i.alap = lamda + 1 - resources[i.type].delay
-            print("node" + str(i.id) + "   alap: "+ str(i.alap) )
+            #print("node" + str(i.id) + "   alap: "+ str(i.alap) )
             queue.extend(i.parent)
     while queue: 
         op =  queue.pop(0)
         children_alap = []                                        
         for j in  op.child:                                        #store ALAP time of all children belong to i  in a list
             children_alap.append(j.alap)                              #bottom up
-        op.alap = min(children_alap) -  resources[op.type].delay
-        queue.extend(op.parent)
-        print("node" + str(op.id) + "   alap: "+ str(op.alap) )                            
+        if 0 in children_alap:
+            queue.append(op)
+        else:
+            op.alap = min(children_alap) -  resources[op.type].delay
+            queue.extend(op.parent)
+            #print("node" + str(op.id) + "   alap: "+ str(op.alap) )                            
 
-"""
-def ALAP(ops_list):
-    for i in reversed(ops_list):                                  #bottom up
-        children_alap = []                                        
-        if not i.child:                                           # if the node has no children
-            i.alap = lamda + 1 - resources[i.type].delay
-            #print("node" + str(i.id) + "   alap: "+ str(i.alap) )
-        else: 
-            for j in  i.child:                                        #store ALAP time of all children belong to i  in a list
-                children_alap.append(j.alap)
-            if not 0 in children_alap:                                #if all the children of i are scheduled 
-                i.alap = min(children_alap) -  resources[i.type].delay #calculate i's ALAP   
- #       print("node" + str(i.id) + "   alap: "+ str(i.alap) )
- #       print(*children_alap)  
-                                      
-"""
-ALAP(ops)
-#for i in ops:
-    #print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child))  )     
+
+def List_Schedule(ops_list):
+    cc = 1
+    U = []         #list of available nodes for each FU
+    for r in resources:
+        for op in ops.vaues():
+            if op.type == r.type:
+
+
+    ALAP(ops_list)
+
+
+
+
+
+
+List_Schedule(ops)
+#DEBUG
+for i in ops.values():
+    print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child))  )   
