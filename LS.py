@@ -34,10 +34,10 @@ class FU:
         self.spower = 0.0
         self.dpower = 0
         self.delay = 0
-        self.constraint = 0
+        self.constraint = 10
 
 ops = []  ## list of nodes
-resources  = []
+resources  = []  ##list of FU types
 
 # read the FUs description from para_new.txt and create resouces list
 
@@ -95,7 +95,51 @@ for i in depend:  ## i is each depency line
     (ops[parent-1].child).append(ops[child-1])  #parent nodes' child list update
     (ops[child-1].parent).append(ops[parent-1]) #update nodes' parent list
 
-# DEBUG 
-for op in ops:
-    for j in op.child:
-        print(j.id)
+# DEBUG
+for n in ops:
+	s = 'id: '+ str(n.id)+', type: '+str(n.type)+', type delay: '+str(resources[n.type].delay)
+	print(s)
+
+
+######------------here comes List Scheduling algorithm--------------------------------
+
+#to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
+dummy_node = node(0)
+#ops.append(dummy_node)
+
+#calculate upperbound of altency constraint
+lamda = 0                                                         #initialize upperbound latency to 0 first
+for i in ops:
+    lamda += resources[i.type].delay 
+
+queue = []
+def ALAP(ops_list):
+    for i in reversed(ops_list):                                  #bottom up                                      
+        if not i.child:                                           # if the node has no children
+            i.alap = lamda + 1 - resources[i.type].delay
+            print("node" + str(i.id) + "   alap: "+ str(i.alap) )
+            queue.extend(i.parent)
+    while queue: 
+        op =  queue.pop(0)                               #bottom up
+        #op.alap = min(op.child) -  resources[op.type].delay
+        print(*(op.child) )                                        
+
+"""
+def ALAP(ops_list):
+    for i in reversed(ops_list):                                  #bottom up
+        children_alap = []                                        
+        if not i.child:                                           # if the node has no children
+            i.alap = lamda + 1 - resources[i.type].delay
+            #print("node" + str(i.id) + "   alap: "+ str(i.alap) )
+        else: 
+            for j in  i.child:                                        #store ALAP time of all children belong to i  in a list
+                children_alap.append(j.alap)
+            if not 0 in children_alap:                                #if all the children of i are scheduled 
+                i.alap = min(children_alap) -  resources[i.type].delay #calculate i's ALAP   
+ #       print("node" + str(i.id) + "   alap: "+ str(i.alap) )
+ #       print(*children_alap)  
+                                      
+"""
+ALAP(ops)
+#for i in ops:
+    #print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child))  )     
