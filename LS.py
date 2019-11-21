@@ -28,6 +28,7 @@ class node:
         self.alap = 0
         self.type = -1
         self.schd_time = 0       #schedule time after LS for each node
+        self.slacks = -1
 
 class FU:
     def __init__(self,type):
@@ -137,10 +138,20 @@ def ALAP(ops_list):
 
 def List_Schedule(ops_list):
     cc = 1
-    U = []         #list of available nodes for each FU
-    for r in resources:
-        for op in ops.vaues():
+    U = []                             #list of available nodes for each FU
+
+    for r in resources:                #for each resource type
+        for op in ops.values():
             if op.type == r.type:
+                parent_schd = []
+                for i in op.parent:
+                    parent_schd.append(op.parent.parent_schd)
+                if  (not op.parent) or  0 in parent_schd:  #if the node doesn't have parent, or its parent not scheduled add into U
+                    U.append(op)
+                for u in U: 
+                op.slacks = op.alap - cc
+
+
 
 
     ALAP(ops_list)
