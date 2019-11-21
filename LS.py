@@ -1,5 +1,5 @@
 import re
-input = open('hal.txt')  #import the input file
+input = open('collapse_pyr_dfg__113.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -85,7 +85,7 @@ depend = []
 for line in input:
     newline = line.strip()
     if "->" in newline:
-        indexes = list(map(int,re.findall(r'\d+',newline)))
+        indexes = list(map(int,re.findall(r'\d+',newline)))     #get all the integers from newline
         depend.append(indexes)									# assign list of indexes read from input file to dependencies list
 
 # assign children and parents to each node by reading from the dependency list
@@ -120,9 +120,13 @@ def ALAP(ops_list):
             print("node" + str(i.id) + "   alap: "+ str(i.alap) )
             queue.extend(i.parent)
     while queue: 
-        op =  queue.pop(0)                               #bottom up
-        #op.alap = min(op.child) -  resources[op.type].delay
-        print(*(op.child) )                                        
+        op =  queue.pop(0)
+        children_alap = []                                        
+        for j in  op.child:                                        #store ALAP time of all children belong to i  in a list
+            children_alap.append(j.alap)                              #bottom up
+        op.alap = min(children_alap) -  resources[op.type].delay
+        queue.extend(op.parent)
+        print("node" + str(op.id) + "   alap: "+ str(op.alap) )                            
 
 """
 def ALAP(ops_list):
