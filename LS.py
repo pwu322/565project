@@ -1,4 +1,6 @@
 import re
+from collections import defaultdict
+
 input = open('hal.txt')  #import the input file
 para = open('para_new.txt')
 
@@ -137,27 +139,35 @@ ALAP(ops)                                                            #pdate the 
 def List_Scheduling(ops_list):
 	cc = 1
 	U = []                             	#list of available nodes of the type
-	T = []								#list of operations in progrees of the same type
-	for r in resources:                	#for each resource type
-		U = []                                    #available operands(nodes) of current resource type, is a list of available-nodes-list of each type
-		for op in ops_list.values():              # op is operands of certain type 
-			if op.type == r.type:                 #current type
-				parent_schd = []                  #put node op's parent's chedule time in a list, then sort later
-				for i in op.parent:
-					parent_schd.append(i.schd_time)
-				#if the node doesn't have parent, or its parent not scheduled , and parent node is not already scheduled at curent cc, then add into U
-				if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd:  #if op are roots or it's parent already scheduled, then op is ready				
-					U.append(op)                  #put "ready nodes" list of current type in U
-					op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
-		U.sort(key = lambda x: x.slacks, reverse=False)               #sort U by its slack
-		#DEBUG
-		#for u in U:                
-		#	print("node id in U "+str(u.id))
-		to_be_scheduled = U[r.type][0:(r.constraint - len(T))]        #pick the  A - T number of nodes that have smallest slacks in U
-		for op in to_be_scheduled:                                    #schedule the nodes that are ready
-			op.schd_time = cc
-		T.append(to_be_scheduled)                                     #T is the operands in process
-		print(*to_be_scheduled)
+	T = defaultdict(list)				#list of operations in progrees of the same type
+	while cc < 4:
+		for r in resources:                	#for each resource type
+			U = []                                    #available operands(nodes) of current resource type, is a list of available-nodes-list of each type
+			for op in ops_list.values():              # op is operands of certain type 
+				if op.type == r.type:                 #current type
+					parent_schd = []                  #put node op's parent's chedule time in a list, then sort later
+					for i in op.parent:
+						parent_schd.append(i.schd_time)
+					#if the node doesn't have parent, or its parent not scheduled , and parent node is not already scheduled at curent cc, then add into U
+					if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd and op.schd_time == 0:  #if op are roots or it's parent already scheduled, then op is ready				
+						U.append(op)                  #put "ready nodes" list of current type in U
+						op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
+			U.sort(key = lambda x: x.slacks, reverse=False)               #sort U by its slack
+			#DEBUG
+			#for u in U:                
+			#	print("node id in U "+str(u.id))
+			if T[r.type]:
+				for op in T[r.type]:
+					if (cc - (op.schd_time + r.delay)) == 0:
+						T[r.type].remove(op)
+						print("removed : "+str(op.id)+"at cc "+str(cc))
+			to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]        #pick the  A - T number of nodes that have smallest slacks in U
+			for op in to_be_scheduled:                                    #schedule the nodes that are ready
+				op.schd_time = cc
+				print("scheduled : "+str(op.id)+"at cc "+str(cc))
+			T[r.type].extend(to_be_scheduled)                                     #T is the operands in process
+			#print(*to_be_scheduled)
+		cc += 1
 
 List_Scheduling(ops)
 #DEBUG
