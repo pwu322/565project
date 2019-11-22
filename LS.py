@@ -148,7 +148,7 @@ def List_Schedule(ops_list):
                     parent_schd.append(op.parent.parent_schd)
                 if  (not op.parent) or  0 in parent_schd:  #if the node doesn't have parent, or its parent not scheduled add into U
                     U.append(op)
-                for u in U: 
+                    for u in U: 
                 op.slacks = op.alap - cc
 
 
