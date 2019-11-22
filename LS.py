@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-input = open('hal.txt')  #import the input file
+input = open('collapse_pyr_dfg__113.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -104,11 +104,8 @@ for n in ops.values():
 	print(s)
 
 
-#-----------------------here comes List Scheduling algorithm--------------------------------
+#--------------------------------------here comes List Scheduling algorithm---------------------------------------------------
 
-#to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
-#dummy_node = node(0)
-#ops.append(dummy_node)
 
 #calculate upperbound of altency constraint
 lamda = 0                                                         #initialize upperbound latency to 0 first
@@ -136,6 +133,7 @@ def ALAP(ops_list):
 
 ALAP(ops)                                                            #pdate the ALAP time of the node dictionary
 
+#to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
 dummy_node = node(-1)
 ops[-1] = dummy_node
 dummy_node.alap = lamda + 1
@@ -157,7 +155,7 @@ def List_Scheduling(ops_list):
 				if op.type == r.type:                 #current type
 					parent_schd = []                  #put node op's parent's chedule time in a list, then sort later
 					for i in op.parent:
-						if i.schd_time + resources[i.type].delay > cc:
+						if i.schd_time + resources[i.type].delay > cc:            #if the node's parents are still running then do not schedule
 							parents_running = 1
 						else: 	
 							parent_schd.append(i.schd_time)
@@ -166,32 +164,29 @@ def List_Scheduling(ops_list):
 						U.append(op)                  #put "ready nodes" list of current type in U
 						op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
 			U.sort(key = lambda x: x.slacks, reverse=False)               #sort U by its slack
-			#DEBUG
-			#for u in U:                
-			#	print("node id in U "+str(u.id))
+
 			if T[r.type]:
-				T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]
+				T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]  #if the node finish running, then remove it from T
 				# DEBUG
 				# for op in T[r.type]:
 				#	print("still running: "+str(op.id)+" at cc "+str(cc))
 
-			to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]        #pick the  A - T number of nodes that have smallest slacks in U
-			for op in to_be_scheduled:                                    #schedule the nodes that are ready
+			to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]                #pick the  A - T number of nodes that have smallest slacks in U
+			for op in to_be_scheduled:                                            #schedule the nodes that are ready
 				op.schd_time = cc
-				print("scheduled : "+str(op.id)+" at cc "+str(cc))
+				#print("scheduled : "+str(op.id)+" at cc "+str(cc))
 			T[r.type].extend(to_be_scheduled)                                     #T is the operands in process
-			#print(*to_be_scheduled)
 		counter = 0
-		for op in dummy_node.parent:
-			if op.schd_time != 0 and (op.schd_time + resources[op.type].delay <= cc):
-				counter += 1
-			
+		for op in dummy_node.parent:                                              #dummy node is only scheduled when all parents are scheduled
+			print("node" + str(op.id)+ "    delay :" +str(resources[op.type].delay))
+			if op.schd_time != 0 and (op.schd_time + resources[op.type].delay <= cc): #cc = max(parent schedule time + parent delay) among all parents
+				counter += 1			
 		if counter == len(dummy_node.parent):
-			dummy_node.schd_time = cc
+			dummy_node.schd_time = cc                                             #schedule dummy node at cc
 
 		cc+=1
 
 List_Scheduling(ops)
 #DEBUG
-for i in ops.values():
-	print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )   
+#for i in ops.values():
+	#print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )   
