@@ -28,7 +28,7 @@ class node:
 		self.alap = 0
 		self.type = -1
 		self.schd_time = 0       #schedule time after LS for each node
-		self.slacks = -1
+		self.slacks = -1         #slacks used in List scheduling algorithm
 
 class FU:
 	def __init__(self,type):
@@ -36,14 +36,12 @@ class FU:
 		self.spower = 0.0
 		self.dpower = 0
 		self.delay = 0
-		self.constraint = 1    
+		self.constraint = 1      #resource constraints for each FU
 
-#ops = []  ## list of nodes
-ops = {}  ##dictionary of nodes, key is id, node is content
-resources  = []  ##list of FU types
+ops = {}                         #dictionary of nodes, key is id, node is content
+resources  = []                  #list of FU types
 
 # read the FUs description from para_new.txt and create resouces list
-
 for line in para:
 	newline = line.strip()
 	if "type" in newline:
@@ -80,7 +78,6 @@ for line in input:
 	   op  = node(id)											# create node and assign its id
 	   op.type = restype										# assign node type
 	   ops[id] = op
-#       ops.append(op)											# append node to list of nodes
 	
 input.seek(0) #read the file again by reset the read
 
@@ -105,7 +102,7 @@ for n in ops.values():
 	print(s)
 
 
-######------------here comes List Scheduling algorithm--------------------------------
+#-----------------------here comes List Scheduling algorithm--------------------------------
 
 #to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
 #dummy_node = node(0)
@@ -116,48 +113,50 @@ lamda = 0                                                         #initialize up
 for i in ops.values():
 	lamda += resources[i.type].delay 
 
-queue = []
+queue = []                                                       #BFS queue, BFS bottom up
 def ALAP(ops_list):
-	for i in ops_list.values():                                  #bottom up                                      
+	for i in ops_list.values():                                  #traverse of all the nodes in input                                     
 		if not i.child:                                           # if the node has no children
-			i.alap = lamda + 1 - resources[i.type].delay
+			i.alap = lamda + 1 - resources[i.type].delay          #calculate alap to all the leaves of the graph
 			#print("node" + str(i.id) + "   alap: "+ str(i.alap) )
 			queue.extend(i.parent)
 	while queue: 
 		op =  queue.pop(0)
 		children_alap = []                                        
 		for j in  op.child:                                        #store ALAP time of all children belong to i  in a list
-			children_alap.append(j.alap)                              #bottom up
-		if 0 in children_alap:
+			children_alap.append(j.alap)                          
+		if 0 in children_alap:                                     #if the children's alap is not computed yet, put it back in the queue
 			queue.append(op)
 		else:
-			op.alap = min(children_alap) -  resources[op.type].delay
-			queue.extend(op.parent)
+			op.alap = min(children_alap) -  resources[op.type].delay  #update nodes' ALAP time based on 
+			queue.extend(op.parent)                                   #put node's parents in the queue
 			#print("node" + str(op.id) + "   alap: "+ str(op.alap) )                            
 
-ALAP(ops)
+ALAP(ops)                                                            #pdate the ALAP time of the node dictionary
 
 def List_Scheduling(ops_list):
 	cc = 1
 	U = []                             	#list of available nodes of the type
 	T = []								#list of operations in progrees of the same type
 	for r in resources:                	#for each resource type
-		U = [] 
-		for op in ops_list.values():
-			if op.type == r.type:
-				parent_schd = []
+		U = []                                    #available operands(nodes) of current resource type, is a list of available-nodes-list of each type
+		for op in ops_list.values():              # op is operands of certain type 
+			if op.type == r.type:                 #current type
+				parent_schd = []                  #put node op's parent's chedule time in a list, then sort later
 				for i in op.parent:
 					parent_schd.append(i.schd_time)
-				if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd:  #if the node doesn't have parent, or its parent not scheduled add into U
-					U.append(op)
-					op.slacks = op.alap - cc
-		U.sort(key = lambda x: x.slacks, reverse=False)
-		for u in U:
-			print("node id in U "+str(u.id))
-		to_be_scheduled = U[0:(r.constraint - len(T))]
-		for op in to_be_scheduled:
+				#if the node doesn't have parent, or its parent not scheduled , and parent node is not already scheduled at curent cc, then add into U
+				if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd:  #if op are roots or it's parent already scheduled, then op is ready				
+					U.append(op)                  #put "ready nodes" list of current type in U
+					op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
+		U.sort(key = lambda x: x.slacks, reverse=False)               #sort U by its slack
+		#DEBUG
+		#for u in U:                
+		#	print("node id in U "+str(u.id))
+		to_be_scheduled = U[r.type][0:(r.constraint - len(T))]        #pick the  A - T number of nodes that have smallest slacks in U
+		for op in to_be_scheduled:                                    #schedule the nodes that are ready
 			op.schd_time = cc
-		T.append(to_be_scheduled)
+		T.append(to_be_scheduled)                                     #T is the operands in process
 		print(*to_be_scheduled)
 
 List_Scheduling(ops)
