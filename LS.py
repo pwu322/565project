@@ -137,7 +137,7 @@ def ALAP(ops_list):
 
 ALAP(ops)
 
-def List_Schedule(ops_list):
+def List_Scheduling(ops_list):
 	cc = 1
 	U = []                             	#list of available nodes of the type
 	T = []								#list of operations in progrees of the same type
@@ -160,7 +160,7 @@ def List_Schedule(ops_list):
 		T.append(to_be_scheduled)
 		print(*to_be_scheduled)
 
-List_Schedule(ops)
+List_Scheduling(ops)
 #DEBUG
 for i in ops.values():
 	print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )   
