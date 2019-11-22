@@ -38,7 +38,7 @@ class FU:
 		self.spower = 0.0
 		self.dpower = 0
 		self.delay = 0
-		self.constraint = 1      #resource constraints for each FU
+		self.constraint = 4      #resource constraints for each FU
 
 ops = {}                         #dictionary of nodes, key is id, node is content
 resources  = []                  #list of FU types
@@ -136,20 +136,33 @@ def ALAP(ops_list):
 
 ALAP(ops)                                                            #pdate the ALAP time of the node dictionary
 
+dummy_node = node(-1)
+ops[-1] = dummy_node
+dummy_node.alap = lamda + 1
+
+for i in ops.values():                                  #traverse of all the nodes in input                                     
+	if not i.child and i.id != -1: 
+		i.child.append(dummy_node)
+		dummy_node.parent.append(i)   
+
 def List_Scheduling(ops_list):
 	cc = 1
 	U = []                             	#list of available nodes of the type
 	T = defaultdict(list)				#list of operations in progrees of the same type
-	while cc < 4:
+	while dummy_node.schd_time == 0:
 		for r in resources:                	#for each resource type
 			U = []                                    #available operands(nodes) of current resource type, is a list of available-nodes-list of each type
 			for op in ops_list.values():              # op is operands of certain type 
+				parents_running = 0
 				if op.type == r.type:                 #current type
 					parent_schd = []                  #put node op's parent's chedule time in a list, then sort later
 					for i in op.parent:
-						parent_schd.append(i.schd_time)
+						if i.schd_time + resources[i.type].delay > cc:
+							parents_running = 1
+						else: 	
+							parent_schd.append(i.schd_time)
 					#if the node doesn't have parent, or its parent not scheduled , and parent node is not already scheduled at curent cc, then add into U
-					if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd and op.schd_time == 0:  #if op are roots or it's parent already scheduled, then op is ready				
+					if ((not op.parent) or 0 not in parent_schd) and cc not in parent_schd and op.schd_time == 0 and parents_running == 0:  #if op are roots or it's parent already scheduled, then op is ready				
 						U.append(op)                  #put "ready nodes" list of current type in U
 						op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
 			U.sort(key = lambda x: x.slacks, reverse=False)               #sort U by its slack
@@ -157,17 +170,26 @@ def List_Scheduling(ops_list):
 			#for u in U:                
 			#	print("node id in U "+str(u.id))
 			if T[r.type]:
-				for op in T[r.type]:
-					if (cc - (op.schd_time + r.delay)) == 0:
-						T[r.type].remove(op)
-						print("removed : "+str(op.id)+"at cc "+str(cc))
+				T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]
+				# DEBUG
+				# for op in T[r.type]:
+				#	print("still running: "+str(op.id)+" at cc "+str(cc))
+
 			to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]        #pick the  A - T number of nodes that have smallest slacks in U
 			for op in to_be_scheduled:                                    #schedule the nodes that are ready
 				op.schd_time = cc
-				print("scheduled : "+str(op.id)+"at cc "+str(cc))
+				print("scheduled : "+str(op.id)+" at cc "+str(cc))
 			T[r.type].extend(to_be_scheduled)                                     #T is the operands in process
 			#print(*to_be_scheduled)
-		cc += 1
+		counter = 0
+		for op in dummy_node.parent:
+			if op.schd_time != 0 and (op.schd_time + resources[op.type].delay <= cc):
+				counter += 1
+			
+		if counter == len(dummy_node.parent):
+			dummy_node.schd_time = cc
+
+		cc+=1
 
 List_Scheduling(ops)
 #DEBUG
