@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-input = open('collapse_pyr_dfg__113.txt')  #import the input file
+input = open('horner_bezier_surf_dfg__12.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -31,6 +31,7 @@ class node:
 		self.type = -1
 		self.schd_time = 0       #schedule time after LS for each node
 		self.slacks = -1         #slacks used in List scheduling algorithm
+		self.distance = 0
 
 class FU:
 	def __init__(self,type):
@@ -133,6 +134,27 @@ def ALAP(ops_list):
 
 ALAP(ops)                                                            #pdate the ALAP time of the node dictionary
 
+
+def get_distance(ops_list):
+	for i in ops_list.values():                                  #traverse of all the nodes in input                                     
+		if not i.child:                                           # if the node has no children
+			i.distance = resources[i.type].delay          #calculate distance to all the leaves of the graph
+			#print("node" + str(i.id) + "   alap: "+ str(i.alap) )
+			queue.extend(i.parent)
+	while queue: 
+		op =  queue.pop(0)
+		children_distance = []                                        
+		for j in  op.child:                                        #store distance of all children belong to i  in a list
+			children_distance.append(j.distance)                          
+		if 0 in children_distance:                                 #if the children's distance is not computed yet, put it back in the queue
+			queue.append(op)
+		else:
+			op.distance = max(children_distance) + resources[op.type].delay  #update nodes' distance  based on  max idstance + delay
+			queue.extend(op.parent)                                   #put node's parents in the queue
+			#print("node" + str(op.id) + "   alap: "+ str(op.alap) )                            
+
+get_distance(ops)  
+
 #to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
 dummy_node = node(-1)
 ops[-1] = dummy_node
@@ -178,7 +200,7 @@ def List_Scheduling(ops_list):
 			T[r.type].extend(to_be_scheduled)                                     #T is the operands in process
 		counter = 0
 		for op in dummy_node.parent:                                              #dummy node is only scheduled when all parents are scheduled
-			print("node" + str(op.id)+ "    delay :" +str(resources[op.type].delay))
+			#print("node" + str(op.id)+ "    delay :" +str(resources[op.type].delay))
 			if op.schd_time != 0 and (op.schd_time + resources[op.type].delay <= cc): #cc = max(parent schedule time + parent delay) among all parents
 				counter += 1			
 		if counter == len(dummy_node.parent):
@@ -189,4 +211,13 @@ def List_Scheduling(ops_list):
 List_Scheduling(ops)
 #DEBUG
 #for i in ops.values():
-	#print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )   
+	#print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )  
+	# 
+
+#-----------------------------------------REST algorithm --------------------------------- 
+
+#DEBUG
+for i in ops.values():
+	print("node" + str(i.id) + "   distance: "+ str(i.distance) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )  
+	 
+
