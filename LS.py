@@ -155,6 +155,9 @@ def get_distance(ops_list):
 
 get_distance(ops)  
 
+#########################################
+#def get_
+
 #to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
 dummy_node = node(-1)
 ops[-1] = dummy_node
@@ -163,7 +166,35 @@ dummy_node.alap = lamda + 1
 for i in ops.values():                                  #traverse of all the nodes in input                                     
 	if not i.child and i.id != -1: 
 		i.child.append(dummy_node)
-		dummy_node.parent.append(i)   
+		dummy_node.parent.append(i) 
+
+
+#-----------------------------------------REST algorithm --------------------------------- 
+
+def REST(ops_list):
+    for op in ops_list.values():
+		if op.d 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----------------------------------------------------------------------------------------------
 
 def List_Scheduling(ops_list):
 	cc = 1
@@ -213,8 +244,6 @@ List_Scheduling(ops)
 #for i in ops.values():
 	#print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + "	schd time: " + str(i.schd_time) )  
 	# 
-
-#-----------------------------------------REST algorithm --------------------------------- 
 
 #DEBUG
 for i in ops.values():
