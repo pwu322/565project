@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-input = open('hal.txt')  #import the input file
+input = open('horner_bezier_surf_dfg__12.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -34,6 +34,8 @@ class node:
         self.distance = 0
         self.rest = -1
         self.e_rest = -1
+        self.rfg_child = []
+        self.rfg_parent = []
 
 class FU:
     def __init__(self,type):
@@ -75,6 +77,11 @@ for line in para:
 #for r in resources:
 #   s = 'Type: '+ str(r.type)+', dpower: '+str(r.dpower)+', spower: '+str(r.spower)+', delay: '+str(r.delay)
 #   print(s)
+
+resources[0].constraint = 1
+resources[2].constraint = 3
+resources[5].constraint = 1
+resources[6].constraint = 1
 
 # read the nodes from the input file and create list of nodes
 for line in input:
@@ -202,14 +209,103 @@ for i in ops.values():                                  #connect dummy node to t
         i.child.append(dummy_node)
         dummy_node.parent.append(i) 
 
+levels = defaultdict(list)
 
-rfg = {}                                   #rgf is the resource flow graph, it is a dictionary
+def get_levels(ops_list):
+	k = 1
+	for op in ops_list.values():
+		if not op.parent:
+			levels[k].append(op)
+
+	while(levels[k]):									# when we get to the last level, since we are not adding the dummy node, we will get to an empty level
+		k += 1
+		for op in levels[k-1]:
+			for i in op.child:
+				if i not in levels[k] and i.id != -1:	# for each child node, if the child is not already in the list of the specific level, add it (don't add dummy node)
+					levels[k].append(i)
+
+get_levels(ops)
+
+k = 1
+for oplist in levels.values():
+	print("level "+str(k)+": ")
+	for op in oplist:
+		print("- node: "+str(op.id))
+	k += 1
+
+last_level = len(levels.values())						# last level of the circuit graph (dummy node level)
+
+visited = defaultdict(list)								# dictionary where all the visited nodes (i.e. rest already computed) are divided by type
 def REST(ops_list):
-    k = 1
-    for op in ops_list.values():
-        if not op.child:                #if update the rest to 1 to all root nodes
-            op.rest = 1
-        rfg[op.id]  = node(op.id)         #initiate the dictionary by ceating another graph but reuse the nodes
+
+	k = 1
+
+	for op in levels[k]:
+		op.rest = 1
+		visited[op.type].append(op)
+		visited[op.type].sort(key = lambda x: x.rest, reverse=True)	# sort the values by rest in descending order, so we can pick easily the ones with the highest rest
+
+	k += 1
+
+	while(k < last_level):					# top bottom part of the algorithm: rest evaluation
+		for op in levels[k]:
+			op.rfg_parent.extend(visited[op.type][0:resources[op.type].constraint]) # we pick a number of nodes with highest rest that is equal to the resource constraint and set them as parents of the given node
+			print("node: "+str(op.id)+" asap: "+str(op.asap))
+			if not op.rfg_parent:
+				op.rest = max(1, op.asap)	# if there are no parents in the rfg graph, we symbolically add a dummy node with rest = 1 and delay = 0, so the max is between 1 (1+0, only parent) and the asap time of the node
+			else:
+				for p in op.rfg_parent:		# we set op as child in the resource flow graph of its rfg parents
+					p.rfg_child.append(op)
+				rest_plus_delay = []		# utility list that contains all the values of delay+rest of the rfg parents
+				for i in op.rfg_parent:		
+					rest_plus_delay.append(i.rest + resources[i.type].delay)
+					print(i.rest+resources[i.type].delay)
+				op.rest = max(min(rest_plus_delay), op.asap)	# as defined in the algorithm, we select the max value among the minimum rest+delay of the parents and the node's asap
+				op.e_rest = op.rest
+		k += 1
+
+	k = last_level-1
+	while(k > 0):							# bottom-up part of the algorithm: e-rest evaluation
+		for op in levels[k]:
+			for p in op.rfg_parent:
+				e_rest_children = []		# utility list that contains all the values of delay-e_rest of the rfg children 
+				
+				for c in p.rfg_child:
+					e_rest_children.append(c.e_rest - resources[p.type].delay)
+				
+				p.e_rest = max(min(e_rest_children), p.rest)
+				
+				if p.e_rest != p.rest:
+					diff = p.e_rest - p.rest 	# save the difference between rest and e_rest to propagate it in the graph
+					p.rest = p.e_rest 			# and update the e_rest value of the node
+					parents_to_update = []		# list of parents to update
+					parents_to_update.extend(p.rfg_parent)	# initialized to the parents of the updated node
+					while(parents_to_update):	# until we reach the first level of the graph
+						i = parents_to_update.pop(0)	# we pop the first element from the list
+						i.rest += diff 			# we update the rest value with the difference computed before
+						for j in i.rfg_parent:	# we visit all the parents in the resource flow graph and check if their rest was not updated to see if it needs to be updated
+							if j.e_rest == j.rest:
+								parents_to_update.append(j)
+
+				for op in ops.values():			# reset the e_rest values to be same as rest values in all the graph
+					op.e_rest = op.rest
+		k -= 1
+
+
+REST(ops)
+
+for op in ops.values():
+	print("node"+str(op.id)+"   rest: "+str(op.rest))
+
+
+
+# rfg = {}                                   #rgf is the resource flow graph, it is a dictionary
+# def REST(ops_list):
+#     k = 1
+#     for op in ops_list.values():
+#         if not op.parent:                #if update the rest to 1 to all root nodes
+#             op.rest = 1
+#         rfg[op.id]  = node(op.id)         #initiate the dictionary by ceating another graph but reuse the nodes
 	
     
 
@@ -228,7 +324,7 @@ def REST(ops_list):
 
 
 
-REST(ops)
+# REST(ops)
 
 
 #DEBUG
@@ -284,8 +380,8 @@ def List_Scheduling(ops_list):
 
 List_Scheduling(ops)
 #DEBUG
-#for i in ops.values():
-    #print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + " schd time: " + str(i.schd_time) )  
+for i in ops.values():
+    print("node" + str(i.id) + "   alap: "+ str(i.alap) + "   number of children:" + str(len(i.child)) + " schd time: " + str(i.schd_time) )  
     # 
 
 #DEBUG
