@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-input = open('horner_bezier_surf_dfg__12.txt')  #import the input file
+input = open('example.txt')  #import the input file
 para = open('para_new.txt')
 
 def get_type(argument): #input is string, output is type #
@@ -43,7 +43,7 @@ class FU:
         self.spower = 0.0
         self.dpower = 0
         self.delay = 0
-        self.constraint = 4      #resource constraints for each FU
+        self.constraint = 1      #resource constraints for each FU
 
 ops = {}                         #dictionary of nodes, key is id, node is content
 resources  = []                  #list of FU types
@@ -78,10 +78,6 @@ for line in para:
 #   s = 'Type: '+ str(r.type)+', dpower: '+str(r.dpower)+', spower: '+str(r.spower)+', delay: '+str(r.delay)
 #   print(s)
 
-resources[0].constraint = 1
-resources[2].constraint = 3
-resources[5].constraint = 1
-resources[6].constraint = 1
 
 # read the nodes from the input file and create list of nodes
 for line in input:
@@ -211,24 +207,28 @@ for i in ops.values():                                  #connect dummy node to t
 
 levels = defaultdict(list)
 
+# function to define the levels of the graph: 
+# 	each entry of the dictionary represent the level with its nodes
 def get_levels(ops_list):
 	k = 1
-	for op in ops_list.values():
+	for op in ops_list.values():						# we start from level 1 adding all the input nodes in the graph
 		if not op.parent:
 			levels[k].append(op)
 
 	while(levels[k]):									# when we get to the last level, since we are not adding the dummy node, we will get to an empty level
-		k += 1
-		for op in levels[k-1]:
+		k += 1											# we increment the level
+		for op in levels[k-1]:							# and for each element in the previous level, we add all its children to the new level
 			for i in op.child:
 				if i not in levels[k] and i.id != -1:	# for each child node, if the child is not already in the list of the specific level, add it (don't add dummy node)
 					levels[k].append(i)
 
 get_levels(ops)
 
+# DEBUG
 k = 1
 for oplist in levels.values():
-	print("level "+str(k)+": ")
+	if oplist:
+		print("level "+str(k)+": ")
 	for op in oplist:
 		print("- node: "+str(op.id))
 	k += 1
@@ -236,21 +236,24 @@ for oplist in levels.values():
 last_level = len(levels.values())						# last level of the circuit graph (dummy node level)
 
 visited = defaultdict(list)								# dictionary where all the visited nodes (i.e. rest already computed) are divided by type
+
 def REST(ops_list):
 
 	k = 1
-
 	for op in levels[k]:
 		op.rest = 1
-		visited[op.type].append(op)
+		visited[op.type].append(op)						# for each resource type, we have a list of visited nodes in the dictionary, from which we can easily extract the eligible parent nodes in the dfg
 		visited[op.type].sort(key = lambda x: x.rest, reverse=True)	# sort the values by rest in descending order, so we can pick easily the ones with the highest rest
 
 	k += 1
-
 	while(k < last_level):					# top bottom part of the algorithm: rest evaluation
 		for op in levels[k]:
 			op.rfg_parent.extend(visited[op.type][0:resources[op.type].constraint]) # we pick a number of nodes with highest rest that is equal to the resource constraint and set them as parents of the given node
-			print("node: "+str(op.id)+" asap: "+str(op.asap))
+			
+			# DEBUG
+			# for i in op.rfg_parent:
+			# 	print("PARENT ID: "+str(i.id))
+
 			if not op.rfg_parent:
 				op.rest = max(1, op.asap)	# if there are no parents in the rfg graph, we symbolically add a dummy node with rest = 1 and delay = 0, so the max is between 1 (1+0, only parent) and the asap time of the node
 			else:
@@ -259,9 +262,19 @@ def REST(ops_list):
 				rest_plus_delay = []		# utility list that contains all the values of delay+rest of the rfg parents
 				for i in op.rfg_parent:		
 					rest_plus_delay.append(i.rest + resources[i.type].delay)
-					print(i.rest+resources[i.type].delay)
+				# DEBUG	
+				# print("node: "+str(op.id)+"		min rest_plus_delay: "+str(min(rest_plus_delay))+"	asap: "+str(op.asap))
 				op.rest = max(min(rest_plus_delay), op.asap)	# as defined in the algorithm, we select the max value among the minimum rest+delay of the parents and the node's asap
 				op.e_rest = op.rest
+
+			if op not in visited[op.type]:	# if not present in the visited dictionary, we add the node to the list of the visited nodes of that type
+				visited[op.type].append(op)
+				visited[op.type].sort(key = lambda x: x.rest, reverse=True) # we sort again the values by rest in descending order
+
+			# DEBUG
+			# for i in visited[op.type]:
+			# 		print("VISITED OF TYPE: "+str(op.type)+" -> "+str(i.id)) 
+
 		k += 1
 
 	k = last_level-1
@@ -277,6 +290,7 @@ def REST(ops_list):
 				
 				if p.e_rest != p.rest:
 					diff = p.e_rest - p.rest 	# save the difference between rest and e_rest to propagate it in the graph
+					#print("difference: "+str(diff))
 					p.rest = p.e_rest 			# and update the e_rest value of the node
 					parents_to_update = []		# list of parents to update
 					parents_to_update.extend(p.rfg_parent)	# initialized to the parents of the updated node
@@ -296,41 +310,6 @@ REST(ops)
 
 for op in ops.values():
 	print("node"+str(op.id)+"   rest: "+str(op.rest))
-
-
-
-# rfg = {}                                   #rgf is the resource flow graph, it is a dictionary
-# def REST(ops_list):
-#     k = 1
-#     for op in ops_list.values():
-#         if not op.parent:                #if update the rest to 1 to all root nodes
-#             op.rest = 1
-#         rfg[op.id]  = node(op.id)         #initiate the dictionary by ceating another graph but reuse the nodes
-	
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# REST(ops)
-
-
-#DEBUG
-#for i in rfg.values():
-#    print("node" + str(i.id))  
-
 
 
 #-----------------------------------------------------------------------------------------------
