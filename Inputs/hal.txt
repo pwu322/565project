@@ -19,5 +19,6 @@ digraph hal1 {
     MUL_7 -> STR_5 [ name = 6 ];
     MUL_8 -> ADD_9 [ name = 7 ];
     ADD_10 -> LOD_11 [ name = 8 ];
+    Type 0 constraint is : 1  
 }
 
