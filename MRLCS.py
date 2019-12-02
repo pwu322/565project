@@ -238,21 +238,18 @@ def List_Scheduling(ops_list):
 				# for op in T[r.type]:
 				#   print("still running: "+str(op.id)+" at cc "+str(cc))
 
-			to_be_scheduled = list(filter(lambda x: x.slacks == 0, U)) 				# we force the scheduling of all those nodes with slack = 0
-			U = list(filter(lambda x: x.slacks != 0, U))							# filter the list to later pick the nodes with smallest slack
-			U.sort(key = lambda x: x.slacks, reverse=False)							# re-sort U (probably not necessary)
+			# to_be_scheduled = list(filter(lambda x: x.slacks == 0, U)) 				# we force the scheduling of all those nodes with slack = 0
+			zero_slack = list(filter(lambda x: x.slacks == 0, U))
 
-			print("ZEROSLACK: "+str(len(to_be_scheduled)))
+			print("ZEROSLACK: "+str(len(zero_slack)))
 
 			new_constraint = 0
 
-			if len(to_be_scheduled) > (r.constraint - len(T[r.type])):									# update the resource constraints for all the nodes with slack = 0 scheduled
-				diff = len(to_be_scheduled) - (r.constraint - len(T[r.type]))
+			if len(zero_slack) > (r.constraint - len(T[r.type])):									# update the resource constraints for all the nodes with slack = 0 scheduled
+				diff = len(zero_slack) - (r.constraint - len(T[r.type]))
 				r.constraint += diff
 
-			T[r.type].extend(to_be_scheduled)
-
-			to_be_scheduled.extend(U[0:(r.constraint - len(T[r.type]))])                #pick the  A - T number of nodes that have smallest slacks in U
+			to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]               #pick the  A - T number of nodes that have smallest slacks in U
 
 			for op in to_be_scheduled:                                            #schedule the nodes that are ready
 				op.schd_time = cc
