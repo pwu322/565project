@@ -78,6 +78,7 @@ for line in para:
 #   s = 'Type: '+ str(r.type)+', dpower: '+str(r.dpower)+', spower: '+str(r.spower)+', delay: '+str(r.delay)
 #   print(s)
 
+resources[2].constraint = 2
 
 # read the nodes from the input file and create list of nodes
 for line in input:
@@ -266,7 +267,8 @@ def REST(ops_list):
                 # DEBUG 
                 # print("node: "+str(op.id)+"       min rest_plus_delay: "+str(min(rest_plus_delay))+"  asap: "+str(op.asap))
                 op.rest = max(min(rest_plus_delay), op.asap)    # as defined in the algorithm, we select the max value among the minimum rest+delay of the parents and the node's asap
-                op.e_rest = op.rest
+            
+            op.e_rest = op.rest
         
         for op in levels[k]:
             if op not in visited[op.type]:  # if not present in the visited dictionary, we add the node to the list of the visited nodes of that type

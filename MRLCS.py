@@ -1,8 +1,8 @@
 import re
 from collections import defaultdict
 
-input = open('Inputs/hal2.txt')  #import the input file
-para = open('Inputs/para_new2.txt')
+input = open('Inputs/hal.txt')  #import the input file
+para = open('Inputs/para_new.txt')
 
 def get_type(argument): #input is string, output is type #
 	switcher = {
