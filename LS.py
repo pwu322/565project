@@ -349,8 +349,8 @@ def List_Scheduling(ops_list):
 	           #  	print("node: "+str(i.id)+"	slack: "+str(i.slacks)+"	e_rest: "+str(i.e_rest))
 
 			# sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
-            U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)
-
+            U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)               # ML-RCS with REST/e-REST
+            # U.sort(key = lambda x: x.slacks, reverse=False)                             # ML-RCS without REST/e-REST
             # DEBUG
             # if U:
 	           #  print("sorted U:")
