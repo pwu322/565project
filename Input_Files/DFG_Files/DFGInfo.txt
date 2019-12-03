@@ -1,0 +1,128 @@
+The current DFG is #1.
+The total number of nodes in the DFG is 11.
+The total number of arcs in the DFG is 8.
+Operation type 0 appears 2 times.
+Operation type 2 appears 6 times.
+Operation type 5 appears 1 times.
+Operation type 7 appears 2 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #2.
+The total number of nodes in the DFG is 18.
+The total number of arcs in the DFG is 16.
+Operation type 0 appears 7 times.
+Operation type 2 appears 8 times.
+Operation type 5 appears 2 times.
+Operation type 7 appears 1 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #3.
+The total number of nodes in the DFG is 28.
+The total number of arcs in the DFG is 30.
+Operation type 0 appears 12 times.
+Operation type 2 appears 16 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #4.
+The total number of nodes in the DFG is 32.
+The total number of arcs in the DFG is 29.
+Operation type 0 appears 14 times.
+Operation type 2 appears 14 times.
+Operation type 5 appears 2 times.
+Operation type 7 appears 2 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #5.
+The total number of nodes in the DFG is 34.
+The total number of arcs in the DFG is 47.
+Operation type 0 appears 26 times.
+Operation type 2 appears 8 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #6.
+The total number of nodes in the DFG is 51.
+The total number of arcs in the DFG is 52.
+Operation type 0 appears 31 times.
+Operation type 2 appears 2 times.
+Operation type 3 appears 1 times.
+Operation type 5 appears 16 times.
+Operation type 7 appears 1 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #7.
+The total number of nodes in the DFG is 53.
+The total number of arcs in the DFG is 50.
+Operation type 0 appears 23 times.
+Operation type 2 appears 17 times.
+Operation type 3 appears 1 times.
+Operation type 5 appears 7 times.
+Operation type 7 appears 4 times.
+Operation type 8 appears 1 times.
+***This DFG contains FU that is not included in our paper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #8.
+The total number of nodes in the DFG is 56.
+The total number of arcs in the DFG is 73.
+Operation type 0 appears 18 times.
+Operation type 2 appears 9 times.
+Operation type 3 appears 2 times.
+Operation type 5 appears 9 times.
+Operation type 7 appears 9 times.
+Operation type 8 appears 8 times.
+Operation type 10 appears 1 times.
+***This DFG contains FU that is not included in our paper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #9.
+The total number of nodes in the DFG is 106.
+The total number of arcs in the DFG is 88.
+Operation type 0 appears 37 times.
+Operation type 1 appears 18 times.
+Operation type 2 appears 2 times.
+Operation type 3 appears 7 times.
+Operation type 5 appears 11 times.
+Operation type 7 appears 24 times.
+Operation type 8 appears 6 times.
+Operation type 10 appears 1 times.
+***This DFG contains FU that is not included in our paper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #10.
+The total number of nodes in the DFG is 108.
+The total number of arcs in the DFG is 104.
+Operation type 0 appears 52 times.
+Operation type 2 appears 36 times.
+Operation type 3 appears 4 times.
+Operation type 5 appears 12 times.
+Operation type 7 appears 4 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #11.
+The total number of nodes in the DFG is 109.
+The total number of arcs in the DFG is 116.
+Operation type 0 appears 45 times.
+Operation type 2 appears 40 times.
+Operation type 5 appears 20 times.
+Operation type 7 appears 4 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #12.
+The total number of nodes in the DFG is 114.
+The total number of arcs in the DFG is 164.
+Operation type 0 appears 38 times.
+Operation type 2 appears 28 times.
+Operation type 3 appears 16 times.
+Operation type 5 appears 9 times.
+Operation type 7 appears 9 times.
+Operation type 8 appears 14 times.
+***This DFG contains FU that is not included in our paper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #13.
+The total number of nodes in the DFG is 134.
+The total number of arcs in the DFG is 169.
+Operation type 0 appears 58 times.
+Operation type 2 appears 36 times.
+Operation type 3 appears 8 times.
+Operation type 5 appears 16 times.
+Operation type 7 appears 8 times.
+Operation type 8 appears 8 times.
+***This DFG contains FU that is not included in our paper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The current DFG is #14.
+The total number of nodes in the DFG is 197.
+The total number of arcs in the DFG is 196.
+Operation type 0 appears 64 times.
+Operation type 2 appears 69 times.
+Operation type 5 appears 48 times.
+Operation type 7 appears 16 times.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
