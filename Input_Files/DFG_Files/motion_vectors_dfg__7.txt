@@ -62,4 +62,14 @@ digraph motion_vectors_dfg__7 {
     ADD_61 -> ADD_63 [ name = 36 ];
     ADD_63 -> STR_64 [ name = 37 ];
 }
-
+Constraint of resource type 0 is:  4
+Constraint of resource type 1 is:  0
+Constraint of resource type 2 is:  6
+Constraint of resource type 3 is:  0
+Constraint of resource type 4 is:  0
+Constraint of resource type 5 is:  2
+Constraint of resource type 6 is:  0
+Constraint of resource type 7 is:  2
+Constraint of resource type 8 is:  0
+Constraint of resource type 9 is:  0
+Constraint of resource type 10 is:  0

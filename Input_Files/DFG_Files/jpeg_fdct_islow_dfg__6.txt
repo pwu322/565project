@@ -303,4 +303,15 @@ digraph jpeg_fdct_islow_dfg__6 {
     ASR_286 -> STR_293 [ name = 217 ];
     MUL_289 -> ADD_292 [ name = 219 ];
     ADD_292 -> STR_293 [ name = 220 ];
-}for type 7 resource constraint is: 0
+}
+Constraint of resource type 0 is:  8
+Constraint of resource type 1 is:  0
+Constraint of resource type 2 is:  8
+Constraint of resource type 3 is:  7
+Constraint of resource type 4 is:  0
+Constraint of resource type 5 is:  8
+Constraint of resource type 6 is:  0
+Constraint of resource type 7 is:  6
+Constraint of resource type 8 is:  6
+Constraint of resource type 9 is:  0
+Constraint of resource type 10 is:  0

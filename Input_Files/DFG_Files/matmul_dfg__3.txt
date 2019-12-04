@@ -225,4 +225,15 @@ digraph matmul_dfg__3 {
     ADD_198 -> MUL_199 [ name = 137 ];
     MUL_199 -> ADD_202 [ name = 138 ];
     ADD_202 -> STR_203 [ name = 139 ];
-}for type 7 resource constraint is: 0
+}
+Constraint of resource type 0 is:  10
+Constraint of resource type 1 is:  0
+Constraint of resource type 2 is:  14
+Constraint of resource type 3 is:  0
+Constraint of resource type 4 is:  0
+Constraint of resource type 5 is:  14
+Constraint of resource type 6 is:  0
+Constraint of resource type 7 is:  4
+Constraint of resource type 8 is:  0
+Constraint of resource type 9 is:  0
+Constraint of resource type 10 is:  0

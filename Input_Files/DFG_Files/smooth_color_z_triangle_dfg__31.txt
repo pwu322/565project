@@ -394,4 +394,15 @@
     MUL_401 -> STR_402 [ name = 271 ];
     STR_402 -> MUL_403 [ name = 272 ];
 }
-for type 7 resource constraint is: 0
+
+Constraint of resource type 0 is:  16
+Constraint of resource type 1 is:  0
+Constraint of resource type 2 is:  31
+Constraint of resource type 3 is:  0
+Constraint of resource type 4 is:  0
+Constraint of resource type 5 is:  16
+Constraint of resource type 6 is:  0
+Constraint of resource type 7 is:  8
+Constraint of resource type 8 is:  0
+Constraint of resource type 9 is:  0
+Constraint of resource type 10 is:  0

@@ -195,4 +195,15 @@ digraph write_bmp_header_dfg__7 {
     ADD_277 -> LOD_278 [ name = 184 ];
     LOD_278 -> DIV_282 [ name = 185 ];
 }
-for type 7 resource constraint is: 0
+
+Constraint of resource type 0 is:  17
+Constraint of resource type 1 is:  11
+Constraint of resource type 2 is:  1
+Constraint of resource type 3 is:  6
+Constraint of resource type 4 is:  0
+Constraint of resource type 5 is:  4
+Constraint of resource type 6 is:  0
+Constraint of resource type 7 is:  23
+Constraint of resource type 8 is:  5
+Constraint of resource type 9 is:  0
+Constraint of resource type 10 is:  1

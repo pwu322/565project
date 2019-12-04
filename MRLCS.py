@@ -3,12 +3,13 @@ from collections import defaultdict
 import string
 import os
 from os import listdir
+import sys
 
-
+i = int(sys.argv[1])
 Input_dir = "Input_Files/DFG_Files"
 input_files = [f for f in listdir(Input_dir) if f.endswith(".txt")]
 
-file1 = input_files[1]
+file1 = input_files[i]
 print(file1)
 input = open('Input_Files//DFG_Files/' + file1)  #import the input file
 para = open('Input_Files/Para_Files/para_new.txt')
