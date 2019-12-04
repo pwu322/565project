@@ -1,8 +1,8 @@
 import re
 from collections import defaultdict
 
-input = open('Inputs/hal.txt')  #import the input file
-para = open('Inputs/para_new.txt')
+input = open('Input_Files/DFG_Files/hal.txt')  #import the input file
+para = open('Input_Files/Para_Files/para_new.txt')
 
 def get_type(argument): #input is string, output is type #
     switcher = {
@@ -78,9 +78,6 @@ for line in para:
 #   s = 'Type: '+ str(r.type)+', dpower: '+str(r.dpower)+', spower: '+str(r.spower)+', delay: '+str(r.delay)
 #   print(s)
 
-resources[2].constraint = 2
-
-# read the nodes from the input file and create list of nodes
 for line in input:
     newline = line.strip()
     if "label" in newline:
@@ -89,6 +86,14 @@ for line in input:
        op  = node(id)                                           # create node and assign its id
        op.type = restype                                        # assign node type
        ops[id] = op
+    elif "Constraint" in newline:
+        idx = list(map(int,re.findall(r'\d+',newline)))
+        resources[idx[0]].constraint = idx[1] 
+
+# DEBUG
+for r in resources:
+    s = 'Type: '+ str(r.type)+', constraint: '+str(r.constraint)+', delay: '+str(r.delay)
+    print(s)       
     
 input.seek(0) #read the file again by reset the read
 
