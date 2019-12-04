@@ -1,9 +1,19 @@
 import LS
-from LS import ops, file1, resources      #import LS.py from the same folder, viarables
+from LS import ops, file1, resources, parameter_resource_constraint       #import LS.py from the same folder, viarables
 import os.path
 from os import path
-import csv  
-                              #use csv as output
+import csv                               #use csv as output
+                                    
+if not os.path.exists('Output/'):        #generate an output folder       
+    os.mkdir('Output/')
+
+dirName = 'Output/'+ str(parameter_resource_constraint) 
+if not os.path.exists(dirName):
+    os.mkdir(dirName)                    #generate a folder inside output folder corresponding to parameter of resource constraint we use
+    print("Directory " , dirName ,  " Created ")
+else:    
+    print("Directory " , dirName ,  " already exists")
+
 
 #initialize the list then output each list as one line
 result_nodes = ["node ID"]
@@ -28,13 +38,13 @@ for op in ops.values():
 
 #write files, create a .csv file with the same file name
 result = file1.replace(".txt",".csv")        #file name is same except ends with .csv
-with open('Output/'+result, 'w') as f:       
+with open(dirName + '/' + result, 'w') as f:       
     csv_writer = csv.writer(f, delimiter=',',
     quotechar='|', quoting=csv.QUOTE_MINIMAL)
     csv_writer.writerow([file1])             #create a .csv file and write the txt file name on first row
 
 #append each row to the existed .csv file
-with open('Output/'+result, 'a') as f:      #append the rest of information to .csv file
+with open(dirName + '/' + result, 'a') as f:      #append the rest of information to .csv file
     csv_writer = csv.writer(f, delimiter=',',
     quotechar='|', quoting=csv.QUOTE_MINIMAL)
     csv_writer.writerow(result_nodes)
@@ -53,26 +63,13 @@ LS.List_Scheduling(ops,True)     #run the algorithm again with REST
 for op in ops.values():
     result_schtime_rest.append(op.schd_time)   #update the list for schedule time with rest
 
-with open('Output/'+result, 'a') as f:     
+with open(dirName + '/' + result, 'a') as f:    
     csv_writer = csv.writer(f, delimiter=',',
     quotechar='|', quoting=csv.QUOTE_MINIMAL)
     csv_writer.writerow(result_schtime_rest)   #append the sch time with rest of information to .csv file
 
-# DEBUG
-# print(result_schtime_no_rest)
-# print(result_schtime_rest)
+# # DEBUG
+# # print(result_schtime_no_rest)
+# # print(result_schtime_rest)
 
-#stats.csv is for all the input, check if the file exist
-if not path.exists("stats.csv"):
-    header = ['file name', 'ASAP','latency without REST','latency with REST','ALAP']
-    with open('stats.csv', 'w') as f:
-        csv_writer = csv.writer(f, delimiter=',',
-            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        csv_writer.writerow(header)
-else:
-    with open('stats.csv', 'a+') as f:
-        csv_writer = csv.writer(f, delimiter=',',
-        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        csv_writer.writerow([file1, str(ops[-1].asap), str(result_schtime_no_rest[-1]), str(result_schtime_rest[-1]), str( ops[-1].alap)])
-   
 

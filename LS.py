@@ -1,12 +1,26 @@
 import re
 import string
 import os
-import sys
+import sys                         #get input argument from command line
 import math
+import shutil                      #remove output folder
 from os import listdir
 from collections import defaultdict
 
-i = int(sys.argv[1])
+if sys.argv[1].isdigit():          #clear all the output result 
+    i = int(sys.argv[1])
+elif sys.argv[1] == "clearall":
+    if os.path.exists("Output"):   
+        shutil.rmtree("Output")
+    if os.path.exists('stats.csv'):
+        os.remove('stats.csv')
+    quit()                         #quit the program if output is cleared
+
+
+parameter_resource_constraint = float(sys.argv[2])
+print("the resource constraints parameter is : " + str(parameter_resource_constraint))
+ 
+
 Input_dir = "Input_Files/DFG_Files"
 input_files = [f for f in listdir(Input_dir) if f.endswith(".txt")]
 
@@ -14,6 +28,7 @@ file1 = input_files[i]
 print(file1)
 input = open('Input_Files//DFG_Files/' + file1)  #import the input file
 para = open('Input_Files/Para_Files/para_new.txt')
+
 
 
 def get_type(argument): #input is string, output is type #
@@ -100,7 +115,7 @@ for line in input:
        ops[id] = op
     elif "Constraint" in newline:
         idx = list(map(int,re.findall(r'\d+',newline)))
-        resources[idx[0]].constraint = math.ceil(idx[1] * 0.5)
+        resources[idx[0]].constraint = math.ceil(idx[1] * parameter_resource_constraint)
 
 # DEBUG
 for r in resources:
@@ -397,14 +412,6 @@ def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise 
         if counter == len(dummy_node.parent):
             dummy_node.schd_time = cc                                             #schedule dummy node at cc
         cc+=1
-
-
-# #generate stats.csv for all the input files
-# header = ['file name', 'ASAP','latency without REST','latency with REST','ALAP']
-# with open('stats.csv', 'w') as f:
-#     csv_writer = csv.writer(f, delimiter=',',
-#     quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#     csv_writer.writerow(header)
 
 
 if __name__ == '__main__':          #if LS.py is passed in terminal instead of get_output.py
