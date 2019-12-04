@@ -342,8 +342,9 @@ def REST(ops_list):
                             if j.e_rest == j.rest:
                                 parents_to_update.append(j)
 
-                #for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
-                #    op.e_rest = op.rest
+                for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
+                   op.rest = op.e_rest
+
         k -= 1
 
 
@@ -422,7 +423,7 @@ if __name__ == '__main__':          #if LS.py is passed in terminal instead of g
 
     List_Scheduling(ops,True) 
     for i in ops.values():
-        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) )  
+        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) +"     e_rest: "+str(i.e_rest))  
 
 
 
