@@ -1,8 +1,20 @@
 import re
+import string
+import os
+import sys
+import math
+from os import listdir
 from collections import defaultdict
 
-input = open('Input_Files/DFG_Files/hal.txt')  #import the input file
+i = int(sys.argv[1])
+Input_dir = "Input_Files/DFG_Files"
+input_files = [f for f in listdir(Input_dir) if f.endswith(".txt")]
+
+file1 = input_files[i]
+print(file1)
+input = open('Input_Files//DFG_Files/' + file1)  #import the input file
 para = open('Input_Files/Para_Files/para_new.txt')
+
 
 def get_type(argument): #input is string, output is type #
     switcher = {
@@ -88,7 +100,7 @@ for line in input:
        ops[id] = op
     elif "Constraint" in newline:
         idx = list(map(int,re.findall(r'\d+',newline)))
-        resources[idx[0]].constraint = idx[1] 
+        resources[idx[0]].constraint = math.ceil(idx[1] * 0.5)
 
 # DEBUG
 for r in resources:
@@ -197,7 +209,7 @@ def ASAP(ops_list):
                         queue.append(i)                                    #put node's children in the queue
                 #print("node" + str(op.id) + "   asap: "+ str(op.asap) )                            
 
-ASAP(ops)
+# ASAP(ops)
 
 #-----------------------------------------REST algorithm --------------------------------- 
 
@@ -210,6 +222,8 @@ for i in ops.values():                                  #connect dummy node to t
     if not i.child and i.id != -1: 
         i.child.append(dummy_node)
         dummy_node.parent.append(i) 
+
+ASAP(ops)  #calculate asap for all the nodes as well as dummy node
 
 levels = defaultdict(list)
 
@@ -319,14 +333,14 @@ def REST(ops_list):
 
 
 REST(ops)
-
-for op in ops.values():
-    print("node"+str(op.id)+"   e-rest: "+str(op.e_rest))
+#DEBUG
+# for op in ops.values():
+#     print("node"+str(op.id)+"   e-rest: "+str(op.e_rest))
 
 
 #-----------------------------------------------------------------------------------------------
 
-def List_Scheduling(ops_list):
+def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise flag is false
     cc = 1
     U = []                              #list of available nodes of the type
     T = defaultdict(list)               #list of operations in progrees of the same type
@@ -354,8 +368,10 @@ def List_Scheduling(ops_list):
 	           #  	print("node: "+str(i.id)+"	slack: "+str(i.slacks)+"	e_rest: "+str(i.e_rest))
 
 			# sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
-            U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)               # ML-RCS with REST/e-REST
-            # U.sort(key = lambda x: x.slacks, reverse=False)                             # ML-RCS without REST/e-REST
+            if flag == True:
+                U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)               # ML-RCS with REST/e-REST
+            else:
+                U.sort(key = lambda x: x.slacks, reverse=False)                             # ML-RCS without REST/e-REST    
             # DEBUG
             # if U:
 	           #  print("sorted U:")
@@ -380,17 +396,26 @@ def List_Scheduling(ops_list):
                 counter += 1            
         if counter == len(dummy_node.parent):
             dummy_node.schd_time = cc                                             #schedule dummy node at cc
-
         cc+=1
 
-List_Scheduling(ops)
-#DEBUG
-for i in ops.values():
-    print("node" + str(i.id) + "   asap: "+ str(i.asap) + "   number of children:" + str(len(i.child)) + " schd time: " + str(i.schd_time) )  
-    # 
 
-#DEBUG
-#for i in ops.values():
-#   print("node" + str(i.id) + "   distance: "+ str(i.distance) + "   number of children:" + str(len(i.child)) + "  schd time: " + str(i.schd_time) )  
-     
+# #generate stats.csv for all the input files
+# header = ['file name', 'ASAP','latency without REST','latency with REST','ALAP']
+# with open('stats.csv', 'w') as f:
+#     csv_writer = csv.writer(f, delimiter=',',
+#     quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#     csv_writer.writerow(header)
+
+
+if __name__ == '__main__':          #if LS.py is passed in terminal instead of get_output.py
+    List_Scheduling(ops,False)
+    for i in ops.values():
+        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) )  
+        i.schd_time = 0
+
+    List_Scheduling(ops,True) 
+    for i in ops.values():
+        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) )  
+
+
 
