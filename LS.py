@@ -277,6 +277,7 @@ def REST(ops_list):
     k = 1
     for op in levels[k]:
         op.rest = 1
+        op.e_rest = 1
         visited[op.type].append(op)                     # for each resource type, we have a list of visited nodes in the dictionary, from which we can easily extract the eligible parent nodes in the dfg
         visited[op.type].sort(key = lambda x: x.rest, reverse=True) # sort the values by rest in descending order, so we can pick easily the ones with the highest rest
 
@@ -295,7 +296,7 @@ def REST(ops_list):
                 op.e_rest = op.rest
             else:
                 for p in op.rfg_parent:     # we set op as child in the resource flow graph of its rfg parents
-                    p.rfg_child.append(op)
+                    p.rfg_child.append(op)  # op can exist multiple times since multiple parent nodes could point to op, we keep updating
                 rest_plus_delay = []        # utility list that contains all the values of delay+rest of the rfg parents
                 for i in op.rfg_parent:     
                     rest_plus_delay.append(i.rest + resources[i.type].delay)
@@ -327,24 +328,27 @@ def REST(ops_list):
                 e_rest_children = []        # utility list that contains all the values of delay-e_rest of the rfg children 
                 
                 for c in p.child:
-                    e_rest_children.append(c.e_rest - resources[p.type].delay)        # ??????????????????????node 3 
+                    e_rest_children.append(c.e_rest - resources[p.type].delay)       
                 
+                # p.e_rest = max(min(e_rest_children), p.e_rest)
+                # if p.e_rest != p.rest:
+                #     diff = p.e_rest - p.rest    # save the difference between rest and e_rest to propagate it in the graph
+                diff = max(min(e_rest_children), p.e_rest) - p.e_rest
                 p.e_rest = max(min(e_rest_children), p.e_rest)
-                if p.e_rest != p.rest:
-                    diff = p.e_rest - p.rest    # save the difference between rest and e_rest to propagate it in the graph
                     #print("difference: "+str(diff))
                     #p.rest = p.e_rest           # and update the e_rest value of the node
+                if diff:
                     parents_to_update = []      # list of parents to update
                     parents_to_update.extend(p.parent)  # initialized to the parents of the updated node
                     while(parents_to_update):   # until we reach the first level of the graph
                         i = parents_to_update.pop(0)    # we pop the first element from the list
                         i.e_rest += diff          # we update the rest value with the difference computed before
                         for j in i.parent:  # we visit all the parents in the resource flow graph and check if their rest was not updated to see if it needs to be updated
-                            if j.e_rest == j.rest:
-                                parents_to_update.append(j)
+                            # if j.e_rest == j.rest:
+                            parents_to_update.append(j)
 
-                for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
-                   op.rest = op.e_rest
+                # for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
+                #    op.rest = op.e_rest
 
         k -= 1
 
