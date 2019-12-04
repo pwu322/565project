@@ -292,6 +292,7 @@ def REST(ops_list):
 
             if not op.rfg_parent:
                 op.rest = max(1, op.asap)   # if there are no parents in the rfg graph, we symbolically add a dummy node with rest = 1 and delay = 0, so the max is between 1 (1+0, only parent) and the asap time of the node
+                op.e_rest = op.rest
             else:
                 for p in op.rfg_parent:     # we set op as child in the resource flow graph of its rfg parents
                     p.rfg_child.append(op)
