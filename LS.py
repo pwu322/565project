@@ -154,15 +154,15 @@ for i in ops.values():
     lamda += resources[i.type].delay 
 
 def DP(ops_list, latency):
-    dp = 0;
-    for r in resources:
-        dp += r.dpower * r.constraint * r.delay
+    dp = 0
+    for op in ops_list.values():
+        dp += resources[op.type].dpower * resources[op.type].delay 
     return dp
 
 def LP(ops_list, latency):
-    lp = 0;
+    lp = 0
     for r in resources:
-        lp += r.spower * r.constraint * latency;
+        lp += r.spower * r.constraint * latency
     return lp
 
 def ALAP(ops_list):
@@ -371,7 +371,7 @@ REST(ops)
 
 
 #-----------------------------------------------------------------------------------------------
-
+total_power = 0
 def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise flag is false
     cc = 1
     U = []                              #list of available nodes of the type
@@ -395,20 +395,20 @@ def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise 
 
             # DEBUG
             # if U:
-	           #  print("unsorted U:")
-	           #  for i in U:
-	           #  	print("node: "+str(i.id)+"	slack: "+str(i.slacks)+"	e_rest: "+str(i.e_rest))
+               #  print("unsorted U:")
+               #  for i in U:
+               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
 
-			# sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
+            # sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
             if flag == True:
                 U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)               # ML-RCS with REST/e-REST
             else:
                 U.sort(key = lambda x: x.slacks, reverse=False)                             # ML-RCS without REST/e-REST    
             # DEBUG
             # if U:
-	           #  print("sorted U:")
-	           #  for i in U:
-	           #  	print("node: "+str(i.id)+"	slack: "+str(i.slacks)+"	e_rest: "+str(i.e_rest))
+               #  print("sorted U:")
+               #  for i in U:
+               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
 
             if T[r.type]:
                 T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]  #if the node finish running, then remove it from T
@@ -430,21 +430,37 @@ def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise 
             dummy_node.schd_time = cc                                             #schedule dummy node at cc
         cc+=1
 
-    dp = DP(ops_list, dummy_node.schd_time)
-    lp = LP(ops_list, dummy_node.schd_time)
-    total_power = dp + lp
-    print("Latency: "+str(dummy_node.schd_time)+", total power: "+str(total_power))
+#     dp = DP(ops_list, dummy_node.schd_time)
+#     lp = LP(ops_list, dummy_node.schd_time)
+#     global total_power
+#     total_power = dp + lp
+
+# print("Latency: "+str(dummy_node.schd_time)+", total power: "+str(total_power))
 
 
 if __name__ == '__main__':          #if LS.py is passed in terminal instead of get_output.py
     List_Scheduling(ops,False)
+    dp = DP(ops, dummy_node.schd_time)
+    lp = LP(ops, dummy_node.schd_time)
+    total_power = dp + lp
+
+    print("Latency: "+str(dummy_node.schd_time)+", total power: "+str(total_power))
+
+
     for i in ops.values():
         print("node" + str(i.id) +"  schd time: " + str(i.schd_time) )  
         i.schd_time = 0
 
     List_Scheduling(ops,True) 
+    dp = DP(ops, dummy_node.schd_time)
+    lp = LP(ops, dummy_node.schd_time)
+    total_power = dp + lp
+    print("Latency: "+str(dummy_node.schd_time)+", total power: "+str(total_power))
+
+
     for i in ops.values():
-        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) +"     e_rest: "+str(i.e_rest))  
+        print("node" + str(i.id) +"  schd time: " + str(i.schd_time) +"     e_rest: "+str(i.e_rest)) 
+         
 
 
 

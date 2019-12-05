@@ -5,4 +5,6 @@ alap,23,23,21,25,25,25,29,31,27,33
 REST,1,1,1,5,3,5,9,9,9,-1
 E_REST,3,1,3,5,3,7,9,9,9,-1
 schd_time without rest,1,3,1,5,5,5,9,11,7,13
+total energy without rest,368.0
 schd_time with rest,3,1,1,5,3,5,9,9,7,13
+total energy with rest,368.0

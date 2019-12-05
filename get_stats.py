@@ -6,6 +6,12 @@ from os import listdir
 from os import path
 
 parameter_resource_constraint = ['0.01','0.05','0.1','0.2','0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']
+
+# #stats.csv is for all the input, check if the file exist. If it is existed, delete it
+# if path.exists("stats.csv"):
+#     os.remove('stats.csv')
+
+
 for para in parameter_resource_constraint:
     Output_dir = 'Output/'+ str(para) + '/'
     output_files = [f for f in listdir(Output_dir) if f.endswith(".csv")]
@@ -16,6 +22,9 @@ for para in parameter_resource_constraint:
     ALAP = ["ALAP"]
     latency_without_REST = ["latency without REST"]
     latency_with_REST = ["latency with REST"]
+    energy_without_REST = ["energy without REST"]
+    energy_with_REST = ["energy with REST"]
+
 
     j = 0
     while j < len(output_files):
@@ -32,12 +41,16 @@ for para in parameter_resource_constraint:
                     ALAP.append(line[-1])
                 if i == 7:
                     latency_without_REST.append(line[-1])
-                if i ==8:
+                if i ==9:
                     latency_with_REST.append(line[-1])
+                if i == 8:
+                    energy_without_REST.append(line[-1])
+                if i == 10:
+                    energy_with_REST.append(line[-1])
         j += 1
     
     header = [para]
-    with open('stats.csv', 'a') as f:
+    with open('stats.csv', 'a+') as f:
         csv_writer = csv.writer(f, delimiter=',',
         quotechar='|', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(header)
@@ -50,6 +63,9 @@ for para in parameter_resource_constraint:
         csv_writer.writerow(latency_with_REST)
         csv_writer.writerow(latency_without_REST)
         csv_writer.writerow(ALAP)
+        csv_writer.writerow(energy_without_REST)
+        csv_writer.writerow(energy_with_REST)
+
 
 
 
