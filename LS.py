@@ -153,6 +153,17 @@ lamda = 0                                                         #initialize up
 for i in ops.values():
     lamda += resources[i.type].delay 
 
+def DP(ops_list, latency):
+    dp = 0;
+    for r in resources:
+        dp += r.dpower * r.constraint * r.delay
+    return dp
+
+def LP(ops_list, latency):
+    lp = 0;
+    for r in resources:
+        lp += r.spower * r.constraint * latency;
+    return lp
 
 def ALAP(ops_list):
     queue = []                                                        #BFS queue, bottom upqueue = []
@@ -418,6 +429,11 @@ def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise 
         if counter == len(dummy_node.parent):
             dummy_node.schd_time = cc                                             #schedule dummy node at cc
         cc+=1
+
+    dp = DP(ops_list, dummy_node.schd_time)
+    lp = LP(ops_list, dummy_node.schd_time)
+    total_power = dp + lp
+    print("Latency: "+str(dummy_node.schd_time)+", total power: "+str(total_power))
 
 
 if __name__ == '__main__':          #if LS.py is passed in terminal instead of get_output.py
