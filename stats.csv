@@ -1,72 +1,72 @@
 0.01
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,163,89,27,69,1,159,75,41,59,57,173,277,175,79,183
-latency without REST,159,91,27,69,1,153,75,41,59,57,173,277,169,83,179
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,159,91,27,15,69,1,153,75,41,59,57,173,277,169,79,173
+latency without REST,159,91,27,17,69,1,153,75,41,59,57,173,277,169,83,179
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.05
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,163,89,27,69,1,159,75,41,59,57,103,209,175,79,183
-latency without REST,159,91,27,69,1,153,75,41,59,57,103,209,169,83,179
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,159,91,27,15,69,1,153,75,41,59,57,103,209,169,79,173
+latency without REST,159,91,27,17,69,1,153,75,41,59,57,103,209,169,83,179
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.1
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,163,89,27,69,1,117,75,41,59,57,65,139,103,79,183
-latency without REST,159,91,27,69,1,117,75,41,59,57,67,139,101,83,179
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,159,91,27,15,69,1,117,75,41,59,57,65,139,101,79,173
+latency without REST,159,91,27,17,69,1,117,75,41,59,57,67,139,101,83,179
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.2
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,123,79,27,69,1,71,53,41,39,57,53,75,79,79,93
-latency without REST,121,79,27,69,1,71,53,41,39,57,53,75,75,83,93
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,121,79,27,15,69,1,71,53,41,39,57,53,75,75,79,93
+latency without REST,121,79,27,17,69,1,71,53,41,39,57,53,75,75,83,93
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.3
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,101,53,27,37,1,49,41,41,39,39,41,63,47,45,73
-latency without REST,103,53,27,37,1,49,41,41,39,39,41,63,47,45,73
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,103,53,27,15,37,1,49,41,41,39,39,41,63,47,45,73
+latency without REST,103,53,27,17,37,1,49,41,41,39,39,41,63,47,45,73
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.4
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,91,53,27,37,1,45,39,31,31,39,33,53,43,45,65
-latency without REST,91,53,27,37,1,45,39,31,31,39,33,53,43,45,65
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,91,53,27,15,37,1,45,39,31,31,39,33,53,43,45,65
+latency without REST,91,53,27,17,37,1,45,39,31,31,39,33,53,43,45,65
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.5
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,91,53,27,37,1,43,39,31,31,39,33,49,39,45,63
-latency without REST,91,53,27,37,1,43,39,31,31,39,33,49,39,45,63
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,91,53,27,15,37,1,43,39,31,31,39,33,49,39,45,63
+latency without REST,91,53,27,17,37,1,43,39,31,31,39,33,49,39,45,63
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.6
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,79,47,21,31,1,41,33,31,23,35,31,49,37,37,55
-latency without REST,79,47,21,31,1,41,33,31,23,35,31,49,37,37,55
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,79,47,21,13,31,1,41,33,31,23,35,31,49,37,37,55
+latency without REST,79,47,21,13,31,1,41,33,31,23,35,31,49,37,37,55
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.7
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,73,47,21,31,1,41,33,29,23,35,31,49,37,35,53
-latency without REST,73,47,21,31,1,41,33,29,23,35,31,49,37,35,53
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,73,47,21,13,31,1,41,33,29,23,35,31,49,37,35,53
+latency without REST,73,47,21,13,31,1,41,33,29,23,35,31,49,37,35,53
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.8
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,75,47,21,23,1,37,33,29,21,35,31,49,31,31,51
-latency without REST,75,47,21,23,1,37,33,29,21,35,31,49,31,31,51
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,75,47,21,13,23,1,37,33,29,21,35,31,49,31,31,51
+latency without REST,75,47,21,13,23,1,37,33,29,21,35,31,49,31,31,51
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 0.9
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,73,47,21,23,1,35,33,29,21,35,29,47,31,31,47
-latency without REST,73,47,21,23,1,35,33,29,21,35,29,47,31,31,47
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,73,47,21,13,23,1,35,33,29,21,35,29,47,31,31,47
+latency without REST,73,47,21,13,23,1,35,33,29,21,35,29,47,31,31,47
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469
 1.0
-file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
-ASAP,71,47,21,23,1,33,33,29,21,35,29,43,29,31,47
-latency with REST,73,47,21,23,1,33,33,29,21,35,29,43,31,31,47
-latency without REST,73,47,21,23,1,33,33,29,21,35,29,43,31,31,47
-ALAP,463,149,45,89,1,353,217,61,105,85,393,693,355,179,469
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,DFGInfo.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,1,33,33,29,21,35,29,43,29,31,47
+latency with REST,73,47,21,13,23,1,33,33,29,21,35,29,43,31,31,47
+latency without REST,73,47,21,13,23,1,33,33,29,21,35,29,43,31,31,47
+ALAP,463,149,45,33,89,1,353,217,61,105,85,393,693,355,179,469

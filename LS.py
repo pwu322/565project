@@ -330,22 +330,22 @@ def REST(ops_list):
                 for c in p.child:
                     e_rest_children.append(c.e_rest - resources[p.type].delay)       
                 
-                # p.e_rest = max(min(e_rest_children), p.e_rest)
+                p.e_rest = max(min(e_rest_children), p.e_rest)
                 # if p.e_rest != p.rest:
                 #     diff = p.e_rest - p.rest    # save the difference between rest and e_rest to propagate it in the graph
-                diff = max(min(e_rest_children), p.e_rest) - p.e_rest
-                p.e_rest = max(min(e_rest_children), p.e_rest)
+                # diff = max(min(e_rest_children), p.e_rest) - p.e_rest
+                # p.e_rest = max(min(e_rest_children), p.e_rest)
                     #print("difference: "+str(diff))
                     #p.rest = p.e_rest           # and update the e_rest value of the node
-                if diff:
-                    parents_to_update = []      # list of parents to update
-                    parents_to_update.extend(p.parent)  # initialized to the parents of the updated node
-                    while(parents_to_update):   # until we reach the first level of the graph
-                        i = parents_to_update.pop(0)    # we pop the first element from the list
-                        i.e_rest += diff          # we update the rest value with the difference computed before
-                        for j in i.parent:  # we visit all the parents in the resource flow graph and check if their rest was not updated to see if it needs to be updated
-                            # if j.e_rest == j.rest:
-                            parents_to_update.append(j)
+                # if diff:
+                #     parents_to_update = []      # list of parents to update
+                #     parents_to_update.extend(p.parent)  # initialized to the parents of the updated node
+                #     while(parents_to_update):   # until we reach the first level of the graph
+                #         i = parents_to_update.pop(0)    # we pop the first element from the list
+                #         i.e_rest += diff          # we update the rest value with the difference computed before
+                #         for j in i.parent:  # we visit all the parents in the resource flow graph and check if their rest was not updated to see if it needs to be updated
+                #             # if j.e_rest == j.rest:
+                #             parents_to_update.append(j)
 
                 # for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
                 #    op.rest = op.e_rest
