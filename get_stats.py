@@ -23,6 +23,8 @@ for para in parameter_resource_constraint:
     latency_without_REST = ["latency without REST"]
     latency_with_REST = ["latency with REST"]
     energy_without_REST = ["energy without REST"]
+    energy_delay_product_with_REST = ["energy delay product with REST"]
+    energy_delay_product_without_REST = ["energy delay product without REST"]
     energy_with_REST = ["energy with REST"]
 
 
@@ -41,12 +43,16 @@ for para in parameter_resource_constraint:
                     ALAP.append(line[-1])
                 if i == 7:
                     latency_without_REST.append(line[-1])
-                if i ==9:
+                if i == 10:
                     latency_with_REST.append(line[-1])
                 if i == 8:
                     energy_without_REST.append(line[-1])
-                if i == 10:
+                if i == 11:
                     energy_with_REST.append(line[-1])
+                if i == 9:
+                    energy_delay_product_without_REST.append(line[-1])
+                if i == 12:
+                    energy_delay_product_with_REST.append(line[-1])
         j += 1
     
     header = [para]
@@ -64,10 +70,9 @@ for para in parameter_resource_constraint:
         csv_writer.writerow(latency_without_REST)
         csv_writer.writerow(ALAP)
         csv_writer.writerow(energy_without_REST)
+        csv_writer.writerow(energy_delay_product_without_REST)
         csv_writer.writerow(energy_with_REST)
-
-
-
+        csv_writer.writerow(energy_delay_product_with_REST)
 
 
 print(*file_name)

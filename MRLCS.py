@@ -195,9 +195,6 @@ def ALAP(ops_list):
 
 ALAP(ops)                                                             #update the ALAP time of the node dictionary
 
-#########################################
-
-#-----------------------------------------REST algorithm --------------------------------- 
 
 #to make the calcuation easier, add an dummy node to the bottom of the graph which connects to all ouputnodes
 dummy_node = node(-1)
@@ -236,39 +233,20 @@ def List_Scheduling(ops_list):
                         op.slacks = op.alap - cc      #compute slacks for nodes in U of current 
                         #print("cc = "+str(cc)+", slack of node: "+str(op.id)+" = "+str(op.slacks)+", type: "+str(r.type))
 
-            # DEBUG
-            # if U:
-               #  print("unsorted U:")
-               #  for i in U:
-               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
-
             # sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
             U.sort(key = lambda x: x.slacks, reverse=False)
 
-            # DEBUG
-            # if U:
-               #  print("sorted U:")
-               #  for i in U:
-               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
-
             if T[r.type]:
                 T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]  #if the node finish running, then remove it from T
-                # DEBUG
-                # for op in T[r.type]:
-                #   print("still running: "+str(op.id)+" at cc "+str(cc))
-
-            # to_be_scheduled = list(filter(lambda x: x.slacks == 0, U))                # we force the scheduling of all those nodes with slack = 0
+               
             zero_slack = list(filter(lambda x: x.slacks == 0, U))
-
-            #print("ZEROSLACK: "+str(len(zero_slack)))
-
             new_constraint = 0
 
-            if len(zero_slack) > (r.constraint - len(T[r.type])):                                   # update the resource constraints for all the nodes with slack = 0 scheduled
+            if len(zero_slack) > (r.constraint - len(T[r.type])):                 # update the resource constraints for all the nodes with slack = 0 scheduled
                 diff = len(zero_slack) - (r.constraint - len(T[r.type]))
                 r.constraint += diff
 
-            to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]               #pick the  A - T number of nodes that have smallest slacks in U
+            to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]                #pick the  A - T number of nodes that have smallest slacks in U
 
             for op in to_be_scheduled:                                            #schedule the nodes that are ready
                 op.schd_time = cc
@@ -285,7 +263,7 @@ def List_Scheduling(ops_list):
 
         cc+=1
 
-List_Scheduling(ops)
+
 #DEBUG
 # for i in ops.values():
 #     print("node" + str(i.id) + "   asap: "+ str(i.asap) + "   number of children:" + str(len(i.child)) + " schd time: " + str(i.schd_time) )  
@@ -297,13 +275,15 @@ List_Scheduling(ops)
 #for i in ops.values():
 #   print("node" + str(i.id) + "   distance: "+ str(i.distance) + "   number of children:" + str(len(i.child)) + "  schd time: " + str(i.schd_time) )  
 
-for f in input_files:
-    if f == file1:
-        os.chdir(Input_dir)
-        txt_files = open(f,"a") 
-        txt_files.write("\n")
-        for r in resources: 
-            txt_files.write("Constraint of resource type "+str(r.type)+" is:  "+str(r.constraint)+"\n")  # python will convert \n to os.linesep
-        txt_files.close()                                      # close the file
+if __name__ == '__main__':          #if LS.py is passed in terminal instead of get_output.py
+    List_Scheduling(ops)
+    for f in input_files:
+        if f == file1:
+            os.chdir(Input_dir)
+            txt_files = open(f,"a") 
+            txt_files.write("\n")
+            for r in resources: 
+                txt_files.write("Constraint of resource type "+str(r.type)+" is:  "+str(r.constraint)+"\n")  # python will convert \n to os.linesep
+            txt_files.close()                                      # close the file
 
 

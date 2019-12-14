@@ -1,0 +1,85 @@
+0,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,95,53,31,15,41,41,39,31,31,41,39,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6282,1540.8,554,334,618.8,3415.6,2775.6,638,926.8,547.6,5776.8,6536.4,2989.6,1838.8,5561.6
+energy delay product,596790,81662.4,17174,5010,25370.8,140039.6,108248.4,19778,28730.8,22451.6,225295.2,320283.6,116594.4,79068.4,350380.8
+0.1,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,41,41,39,31,31,39,39,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,618.8,3415.6,2775.6,638,926.8,536.4,5776.8,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,25370.8,140039.6,108248.4,19778,28730.8,20919.6,225295.2,320283.6,116594.4,79068.4,350380.8
+0.2,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,41,41,39,31,31,39,39,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,618.8,3415.6,2775.6,638,926.8,536.4,5776.8,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,25370.8,140039.6,108248.4,19778,28730.8,20919.6,225295.2,320283.6,116594.4,79068.4,350380.8
+0.3,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,41,41,39,31,31,37,39,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,618.8,3415.6,2775.6,638,926.8,525.2,5776.8,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,25370.8,140039.6,108248.4,19778,28730.8,19432.4,225295.2,320283.6,116594.4,79068.4,350380.8
+0.4,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,41,41,39,31,33,37,35,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,618.8,3415.6,2775.6,638,952.4,525.2,5444,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,25370.8,140039.6,108248.4,19778,31429.2,19432.4,190540,320283.6,116594.4,79068.4,350380.8
+0.5,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,37,41,39,31,33,37,35,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,599.6,3415.6,2775.6,638,952.4,525.2,5444,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,22185.2,140039.6,108248.4,19778,31429.2,19432.4,190540,320283.6,116594.4,79068.4,350380.8
+0.6,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,31,15,37,41,39,31,33,39,35,49,39,43,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,554,334,599.6,3415.6,2775.6,638,952.4,536.4,5444,6536.4,2989.6,1838.8,5561.6
+energy delay product,558703.6,81662.4,17174,5010,22185.2,140039.6,108248.4,19778,31429.2,20919.6,190540,320283.6,116594.4,79068.4,350380.8
+0.7,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,51,31,15,37,43,39,31,35,39,35,49,39,45,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1505.6,554,334,599.6,3498.8,2775.6,638,978,536.4,5444,6536.4,2989.6,1882,5561.6
+energy delay product,558703.6,76785.6,17174,5010,22185.2,150448.4,108248.4,19778,34230,20919.6,190540,320283.6,116594.4,84690,350380.8
+0.8,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,51,27,15,37,43,39,31,35,39,35,49,39,45,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1505.6,522,334,599.6,3498.8,2775.6,638,978,536.4,5444,6536.4,2989.6,1882,5561.6
+energy delay product,558703.6,76785.6,14094,5010,22185.2,150448.4,108248.4,19778,34230,20919.6,190540,320283.6,116594.4,84690,350380.8
+0.9,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,27,15,37,43,39,31,31,39,33,49,39,45,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,522,334,599.6,3498.8,2775.6,638,926.8,536.4,5277.6,6536.4,2989.6,1882,5561.6
+energy delay product,558703.6,81662.4,14094,5010,22185.2,150448.4,108248.4,19778,28730.8,20919.6,174160.8,320283.6,116594.4,84690,350380.8
+1,,,,,,,,,,,,,,,
+file name,idctcol_dfg__3.txt,h2v2_smooth_downsample_dfg__6.txt,hal.txt,example.txt,arf.txt,interpolate_aux_dfg__12.txt,collapse_pyr_dfg__113.txt,horner_bezier_surf_dfg__12.txt,motion_vectors_dfg__7.txt,ewf.txt,write_bmp_header_dfg__7.txt,smooth_color_z_triangle_dfg__31.txt,matmul_dfg__3.txt,feedback_points_dfg__7.txt,jpeg_fdct_islow_dfg__6.txt
+ASAP,71,47,21,13,23,33,33,29,21,35,29,43,29,31,47
+latency ,91,53,27,17,37,43,39,31,31,39,33,49,39,45,63
+ALAP,463,149,45,33,89,353,217,61,105,85,393,693,355,179,469
+energy,6139.6,1540.8,522,346.8,599.6,3498.8,2775.6,638,926.8,536.4,5277.6,6536.4,2989.6,1882,5561.6
+energy delay product,558703.6,81662.4,14094,5895.6,22185.2,150448.4,108248.4,19778,28730.8,20919.6,174160.8,320283.6,116594.4,84690,350380.8
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,#VALUE!,,,,

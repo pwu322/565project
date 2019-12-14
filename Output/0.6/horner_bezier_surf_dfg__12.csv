@@ -6,5 +6,7 @@ REST,1,5,7,23,13,17,1,1,5,7,11,21,1,5,7,23,23,1,-1
 E_REST,13,17,19,23,13,17,13,7,11,13,17,21,13,17,19,23,23,1,-1
 schd_time without rest,1,5,9,13,15,19,5,1,7,9,13,23,5,9,11,15,25,1,31
 total energy without rest,687.6
+energy delay product without rest,21315.600000000002
 schd_time with rest,1,5,9,13,15,19,5,1,7,9,13,23,5,9,11,15,25,1,31
 total energy with rest,687.6
+energy delay product with rest,21315.600000000002

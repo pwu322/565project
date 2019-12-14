@@ -25,13 +25,17 @@ result_schtime_no_rest = ["schd_time without rest"]
 result_schtime_rest = ["schd_time with rest"]
 result_energy = ["total energy without rest"]
 result_energy_rest = ["total energy with rest"]
+result_energy_delay_product = ["energy delay product without rest"]
+result_energy_delay_product_rest = ["energy delay product with rest"]
+
 
 #run list scheduling algorithm without REST
 LS.List_Scheduling(ops,False)            #without REST
 dp = LS.DP(ops, ops[-1].schd_time)
 lp = LS.LP(ops, ops[-1].schd_time)
-total_power = dp + lp
-result_energy.append(total_power)        #append the energy for each graph    
+total_energy = dp + lp
+result_energy.append(total_energy)        #append the energy for each graph
+result_energy_delay_product.append(total_energy*ops[-1].schd_time)    
 
 #update values for each list
 for op in ops.values():
@@ -61,6 +65,8 @@ with open(dirName + '/' + result, 'a') as f:      #append the rest of informatio
     csv_writer.writerow(result_E_REST)
     csv_writer.writerow(result_schtime_no_rest)
     csv_writer.writerow(result_energy)
+    csv_writer.writerow(result_energy_delay_product)
+
 
 #important: since python always update the mutable object(ops), we have to reset it before another List_Scheduling function call
 for i in ops.values():
@@ -70,8 +76,9 @@ for i in ops.values():
 LS.List_Scheduling(ops,True)     #run the algorithm again with REST
 dp = LS.DP(ops, ops[-1].schd_time)
 lp = LS.LP(ops, ops[-1].schd_time)
-total_power_rest = dp + lp
-result_energy_rest.append(total_power_rest)
+total_energy_rest = dp + lp
+result_energy_rest.append(total_energy_rest)
+result_energy_delay_product_rest.append(total_energy_rest*ops[-1].schd_time)
 
 for op in ops.values():
     result_schtime_rest.append(op.schd_time)   #update the list for schedule time with rest
@@ -81,6 +88,7 @@ with open(dirName + '/' + result, 'a') as f:
     quotechar='|', quoting=csv.QUOTE_MINIMAL)
     csv_writer.writerow(result_schtime_rest)   #append the sch time with rest of information to .csv file
     csv_writer.writerow(result_energy_rest)
+    csv_writer.writerow(result_energy_delay_product_rest)
 
 # # DEBUG
 # # print(result_schtime_no_rest)

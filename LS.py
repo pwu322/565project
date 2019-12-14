@@ -20,7 +20,7 @@ elif sys.argv[1] == "clearall":
 parameter_resource_constraint = float(sys.argv[2])
 print("the resource constraints parameter is : " + str(parameter_resource_constraint))
  
-
+#get all the inputs from the inputs directory and all the file names in a list convenient to traverse the list later
 Input_dir = "Input_Files/DFG_Files"
 input_files = [f for f in listdir(Input_dir) if f.endswith(".txt")]
 
@@ -270,15 +270,6 @@ def get_levels(ops_list):
 
 get_levels(ops)
 
-# DEBUG
-# k = 1
-# for oplist in levels.values():
-#     if oplist:
-#         print("level "+str(k)+": ")
-#     for op in oplist:
-#         print("- node: "+str(op.id))
-#     k += 1
-
 last_level = len(levels.values())                       # last level of the circuit graph (dummy node level)
 
 visited = defaultdict(list)                             # dictionary where all the visited nodes (i.e. rest already computed) are divided by type
@@ -298,10 +289,6 @@ def REST(ops_list):
             filtered_visited = list(filter(lambda x: x.id != op.id, visited[op.type]))
             op.rfg_parent.extend(filtered_visited[0:resources[op.type].constraint]) # we pick a number of nodes with highest rest that is equal to the resource constraint and set them as parents of the given node
             
-            # DEBUG
-            # for i in op.rfg_parent:
-            #     print("op.id: " + str(op.id) + "  PARENT ID: "+str(i.id))
-
             if not op.rfg_parent:
                 op.rest = max(1, op.asap)   # if there are no parents in the rfg graph, we symbolically add a dummy node with rest = 1 and delay = 0, so the max is between 1 (1+0, only parent) and the asap time of the node
                 op.e_rest = op.rest
@@ -311,27 +298,17 @@ def REST(ops_list):
                 rest_plus_delay = []        # utility list that contains all the values of delay+rest of the rfg parents
                 for i in op.rfg_parent:     
                     rest_plus_delay.append(i.rest + resources[i.type].delay)
-                # DEBUG 
-                # print("node: "+str(op.id)+"       min rest_plus_delay: "+str(min(rest_plus_delay))+"  asap: "+str(op.asap))
+  
                 op.rest = max(min(rest_plus_delay), op.asap)    # as defined in the algorithm, we select the max value among the minimum rest+delay of the parents and the node's asap
-            
             op.e_rest = op.rest
         
         for op in levels[k]:
             if op not in visited[op.type]:  # if not present in the visited dictionary, we add the node to the list of the visited nodes of that type
                 visited[op.type].append(op)
                 visited[op.type].sort(key = lambda x: x.rest, reverse=True) # we sort again the values by rest in descending order
-
-            # DEBUG
-            # for i in visited[op.type]:
-            #       print("VISITED OF TYPE: "+str(op.type)+" -> "+str(i.id)) 
-
         k += 1
 
-    # DEBUG
-    # for op in ops.values():
-    #    print("node"+str(op.id)+"   rest: "+str(op.rest))
-
+    
     k = last_level-1
     while(k >0):                           # bottom-up part of the algorithm: e-rest evaluation
         for op in levels[k]:
@@ -342,25 +319,6 @@ def REST(ops_list):
                     e_rest_children.append(c.e_rest - resources[p.type].delay)       
                 
                 p.e_rest = max(min(e_rest_children), p.e_rest)
-                # if p.e_rest != p.rest:
-                #     diff = p.e_rest - p.rest    # save the difference between rest and e_rest to propagate it in the graph
-                # diff = max(min(e_rest_children), p.e_rest) - p.e_rest
-                # p.e_rest = max(min(e_rest_children), p.e_rest)
-                    #print("difference: "+str(diff))
-                    #p.rest = p.e_rest           # and update the e_rest value of the node
-                # if diff:
-                #     parents_to_update = []      # list of parents to update
-                #     parents_to_update.extend(p.parent)  # initialized to the parents of the updated node
-                #     while(parents_to_update):   # until we reach the first level of the graph
-                #         i = parents_to_update.pop(0)    # we pop the first element from the list
-                #         i.e_rest += diff          # we update the rest value with the difference computed before
-                #         for j in i.parent:  # we visit all the parents in the resource flow graph and check if their rest was not updated to see if it needs to be updated
-                #             # if j.e_rest == j.rest:
-                #             parents_to_update.append(j)
-
-                # for op in ops.values():         # reset the e_rest values to be same as rest values in all the graph
-                #    op.rest = op.e_rest
-
         k -= 1
 
 
@@ -393,34 +351,21 @@ def List_Scheduling(ops_list,flag):    #flag is true if REST is used, otherwise 
                         U.append(op)                  #put "ready nodes" list of current type in U
                         op.slacks = op.alap - cc      #compute slacks for nodes in U of current type
 
-            # DEBUG
-            # if U:
-               #  print("unsorted U:")
-               #  for i in U:
-               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
-
-            # sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
+            #sort U by its slack and e_rest: when two nodes have the same slack, they are sorted based on e-rest to break ties
             if flag == True:
                 U.sort(key = lambda x: (x.slacks, x.e_rest), reverse=False)               # ML-RCS with REST/e-REST
             else:
                 U.sort(key = lambda x: x.slacks, reverse=False)                             # ML-RCS without REST/e-REST    
-            # DEBUG
-            # if U:
-               #  print("sorted U:")
-               #  for i in U:
-               #    print("node: "+str(i.id)+"  slack: "+str(i.slacks)+"    e_rest: "+str(i.e_rest))
-
+           
             if T[r.type]:
                 T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]  #if the node finish running, then remove it from T
-                # DEBUG
-                # for op in T[r.type]:
-                #   print("still running: "+str(op.id)+" at cc "+str(cc))
-
+            
             to_be_scheduled = U[0:(r.constraint - len(T[r.type]))]                #pick the  A - T number of nodes that have smallest slacks in U
             for op in to_be_scheduled:                                            #schedule the nodes that are ready
                 op.schd_time = cc
-                #print("scheduled : "+str(op.id)+" at cc "+str(cc))
+            
             T[r.type].extend(to_be_scheduled)                                     #T is the operands in process
+        
         counter = 0
         for op in dummy_node.parent:                                              #dummy node is only scheduled when all parents are scheduled
             #print("node" + str(op.id)+ "    delay :" +str(resources[op.type].delay))

@@ -6,3 +6,4 @@ for ((i=0; i<=14; i++))
 do
     python3 get_output.py "$i" "$parameter_resource_constraint"
 done
+

@@ -1,3 +1,10 @@
+# This is checker file to check is list scheduling algorithm result satisfies the following requirement:
+# 1. check if the scheduling time of each node is >= its parents' scheduling time + delay
+# 2. check if the scheduling time + delay of each node is <= its children's scheduling time
+# 3. check if the scheduling time of each node is between its ASAP and ALAP
+# 4. for each clock cycle, check if the number of busy FUs is at most equal to the resource constraints
+
+#*********************************** checker for LS.py (ML_RCS) *****************************************
 import LS
 from LS import ops, file1, resources      #import LS.py from the same folder, viarables
 import os.path
@@ -29,10 +36,10 @@ T = defaultdict(list)
 for cc in range(1, dummy.schd_time + 1):										# for each clock cycle, check if the number of busy FUs is at most equal to the resource constraints
 	for r in resources:
 		if T[r.type]:
-			T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0]
+			T[r.type] = [ op for op in T[r.type] if (cc - (op.schd_time + r.delay)) != 0] # remove op if op finishes running
 
 		for op in ops.values():
-			if op.type == r.type and op.schd_time == cc:
+			if op.type == r.type and op.schd_time == cc:                        # add op to T if it is scheduled
 				T[r.type].append(op)
 
 		if len(T[r.type]) > r.constraint:
